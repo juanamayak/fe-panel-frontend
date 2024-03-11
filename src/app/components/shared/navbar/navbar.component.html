@@ -1,0 +1,40 @@
+<nav class="fixed top-0 left-0 right-0 z-10 bg-slate-800">
+    <div class="max-w-full mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <ng-content></ng-content>
+            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start ml-2">
+                <div class="flex-shrink-0 flex items-center">
+                    <!-- Flyback -->
+                    <!--<img class="block lg:hidden h-8 w-auto" src="assets/flyback/logo-white.png" alt="Workflow">
+                    <img class="hidden lg:block h-8 w-auto" src="assets/flyback/logo-white.png" alt="Workflow">uñas
+                    <h1 class="text-2xl text-white ml-2">Payments</h1>-->
+                    <!-- Travelife --->
+                    <!--<img class="block lg:hidden h-8 w-auto" src="assets/travelife/logo-horizontal.png" alt="Workflow">
+                    <img class="hidden lg:block h-12 w-auto" src="assets/travelife/logo-horizontal.png" alt="Workflow">-->
+                    <!-- Vacation Center -->
+                    <img class="block lg:hidden h-8 w-auto" src="assets/logotipo-floreria-envios-positivo.png">
+                    <img class="hidden lg:block h-12 w-auto" src="assets/logotipo-floreria-envios-positivo.png">
+                    <h1 class="text-2xl text-white ml-2">Panel de Control</h1>
+                    <!-- Gusa Capital -->
+                    <!--<img class="block lg:hidden h-8 w-auto" src="assets/gusa/navbar-logo.png" alt="Workflow">
+                    <img class="hidden lg:block h-12 w-auto" src="assets/gusa/navbar-logo.png" alt="Workflow">-->
+                </div>
+            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="h-8 w-8 rounded-full text-sm">
+                <i class="fa-solid fa-circle-user text-white"></i>
+            </button>
+
+            <mat-menu #menu="matMenu" class="mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <button mat-menu-item>
+                    <span><i class="fa-solid fa-gear"></i>&nbsp;Perfil</span>
+                </button>
+                <button mat-menu-item>
+                    <span><i class="fa-solid fa-power-off"></i>&nbsp;Salir</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+
+</nav>
+
+

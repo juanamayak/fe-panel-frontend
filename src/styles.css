@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/loaded-theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SweetAlert2 Custom */
+
+.swal2-popup{
+    font-family: 'Inter var' !important;
+    border-radius: 0.5rem !important;
+}
+
+.swal2-icon{
+    margin: 1.5em auto 0.6em !important;
+}
+
+.swal2-title{
+    padding: 0 !important;
+    font-size: 1.125rem !important;
+}
+
+.swal2-html-container{
+    margin: 0 !important;
+    font-size: .875rem !important;
+    color: #eee;
+}
+/* End SweetAlert2 Custom */
+
+/* MatTables Custom */
+.mat-table{
+    font-family: 'Inter var' !important;
+}
+/* End MatTables Custom */
+
+/* MatDialog Custom */
+.mat-dialog-container{
+    font-family: 'Inter var' !important;
+    border-radius: 0.8rem !important;
+}
+/* End MatDialog Custom */
+
+/* Buttons Custom */
+button{
+    @apply rounded-md !important;
+}
+
+/* End Button Custom */
+
+
+/* Custom Input Styling */
+.mat-form-field {
+    @apply w-full;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    @apply py-2.5;
+}
+
+
+.mat-mdc-form-field-infix {
+    min-height: 30px;
+}
+
+/* End Custom Input Styling*/
+
+/* Mat Table Custom */
+.mat-mdc-header-cell{
+    @apply bg-slate-100 font-bold text-xs uppercase !important;
+}
+/* End Mat Table Custom */
+
+
+
+

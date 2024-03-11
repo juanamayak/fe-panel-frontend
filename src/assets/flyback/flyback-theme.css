@@ -1,0 +1,45 @@
+
+.login-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('background.jpg');
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Primary Button Styling */
+
+.mat-button.mat-primary,
+.mat-stroked-button.mat-primary {
+    @apply text-blue-900;
+}
+.mat-button.mat-primary:hover,
+.mat-stroked-button.mat-primary:hover {
+    @apply bg-white;
+}
+
+.mat-raised-button.mat-primary,
+.mat-flat-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+    @apply bg-blue-900 text-white;
+}
+
+.mat-icon-button.mat-primary {
+    @apply text-blue-900;
+}
+/* End Primary Button Styling */
+
+/* Navbar Custom */
+.bg-navbar {
+    @apply bg-blue-900;
+}
+
+/* End Navbar */
+
+/* Sidebar*/
+
+.label-section {
+    @apply text-blue-900;
+}
+
+/* End Sidebar */
