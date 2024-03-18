@@ -4,23 +4,8 @@ import {AlertsService} from "../../services/alerts.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserRoles} from "../../constants/roles";
 import {UsersService} from "../../services/users.service";
-
-export interface PeriodicElement {
-    full_name: string;
-    email: string;
-    status: number;
-    created: Date;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-    {full_name: 'Juan Enrique Amaya', email: 'test@email.com', status: 1, created: new Date()},
-    {full_name: 'Luis Daniel Solano', email: 'test@email.com', status: 1, created: new Date()},
-    {full_name: 'Omar Alejandro Gonzalez', email: 'test@email.com', status: 1, created: new Date()},
-    {full_name: 'Jorge Esau Mejia Torres', email: 'test@email.com', status: 1, created: new Date()},
-    {full_name: 'Jhon Doe Slim', email: 'test@email.com', status: 0, created: new Date()},
-    {full_name: 'Pancho Lopez Gonzalez', email: 'test@email.com', status: 0, created: new Date()},
-    {full_name: 'Daniel Cosito Peraza', email: 'test@email.com', status: 1, created: new Date()},
-];
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-users',
@@ -29,9 +14,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UsersComponent implements OnInit {
 
-    displayedColumns: string[] = ['full_name', 'email', 'status', 'action'];
-    dataSource = ELEMENT_DATA;
+    public usersList: MatTableDataSource<any>;
 
+    public displayedColumns: string[] = ['name', 'email', 'role', 'status', 'active', 'action'];
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
     public developers: any;
@@ -50,8 +37,7 @@ export class UsersComponent implements OnInit {
     }
 
     getUsers(){
-        // IMPLEMENTAR PETICIÓN DE USUARIOS
-        /*this.spinner.show();
+        this.spinner.show();
         this.usersService.getUsers().subscribe({
             next: res => {
                 this.usersList = new MatTableDataSource(res.users);
@@ -63,7 +49,7 @@ export class UsersComponent implements OnInit {
                 this.spinner.hide()
                 this.alertsService.errorAlert(err.error.errors);
             }
-        });*/
+        });
     }
 
 

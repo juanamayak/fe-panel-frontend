@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import * as moment from "moment";
+import {UsersService} from "../../../services/users.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {AlertsService} from "../../../services/alerts.service";
 
 
 @Component({
@@ -15,7 +18,10 @@ export class LoginComponent implements OnInit {
     public currentYear = moment().format('YYYY');
 
     constructor(
+        private usersService: UsersService,
         private formBuilder: FormBuilder,
+        private alertsService: AlertsService,
+        private spinner: NgxSpinnerService,
         private router: Router,
     ) {
     }
@@ -32,7 +38,21 @@ export class LoginComponent implements OnInit {
     }
 
     onLogin(){
+        this.spinner.show();
         const data = this.loginForm.value;
-        this.router.navigate(['home']);
+        this.usersService.login(data).subscribe({
+            next: res => {
+
+                const token = res.token;
+                sessionStorage.setItem(this.usersService.jwtToken, token);
+                this.router.navigate(['inicio']);
+
+                this.spinner.hide();
+            },
+            error: err => {
+                this.spinner.hide();
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        })
     }
 }
