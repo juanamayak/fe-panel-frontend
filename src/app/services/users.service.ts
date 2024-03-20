@@ -26,6 +26,14 @@ export class UsersService {
         return this.httpClient.get(`${this.url}/users`);
     }
 
+    updateStatus(userUuid, data): Observable<any>{
+        return this.httpClient.put(`${this.url}/users/status/${userUuid}`, data);
+    }
+
+    deleteUser(userUuid): Observable<any>{
+        return this.httpClient.put(`${this.url}/users/delete/${userUuid}`, {});
+    }
+
     getToken() {
         const token = sessionStorage.getItem(this.jwtToken);
 

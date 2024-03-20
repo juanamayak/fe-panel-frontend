@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
 import {AlertsService} from "../../services/alerts.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {UserRoles} from "../../constants/roles";
+import {UserRoles} from "../../constants/user-roles";
 import {UsersService} from "../../services/users.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import {UserStatuses} from "../../constants/user-status";
 
 @Component({
     selector: 'app-users',
@@ -24,6 +25,7 @@ export class UsersComponent implements OnInit {
     public developers: any;
 
     public roles = UserRoles;
+    public statuses = UserStatuses;
 
     constructor(
         private usersService: UsersService,
@@ -36,7 +38,7 @@ export class UsersComponent implements OnInit {
         this.getUsers();
     }
 
-    getUsers(){
+    getUsers() {
         this.spinner.show();
         this.usersService.getUsers().subscribe({
             next: res => {
@@ -52,14 +54,32 @@ export class UsersComponent implements OnInit {
         });
     }
 
+    updateStatus(userUuid, status){
+        this.spinner.show();
+        const data = { status: status ? 1 : 0}
+        this.usersService.updateStatus(userUuid, data).subscribe({
+            next: res => {
+                this.spinner.hide();
+                this.alertsService.successAlert((res as any).message);
+                setTimeout(() => {
+                    this.getUsers()
+                }, 2500);
+            },
+            error: err => {
+                this.spinner.hide();
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        })
+    }
 
-    deleteUser(user){
+
+    deleteUser(userUuid) {
+        console.log(userUuid);
         this.alertsService.confirmDelete(`¿Estás seguro de eliminar este usuario?`)
             .then((res) => {
                 if (res.isConfirmed) {
-                    // PETICIÓN PARA ELIMINAR USUARIO
-                    /*this.spinner.show();
-                    this.usersService.deleteUser(user.uuid).subscribe({
+                    this.spinner.show();
+                    this.usersService.deleteUser(userUuid).subscribe({
                         next: res => {
                             this.spinner.hide();
                             this.alertsService.successAlert((res as any).message);
@@ -71,15 +91,16 @@ export class UsersComponent implements OnInit {
                             this.spinner.hide();
                             this.alertsService.errorAlert(err.error.errors);
                         }
-                    })*/
+                    })
                 }
             });
     }
+
     createUser(): void {
 
     }
 
-    updateUser(user){
+    updateUser(user) {
         const config = {
             data: {
                 user
@@ -88,8 +109,8 @@ export class UsersComponent implements OnInit {
 
     }
 
-    /*applyFilter(event: Event) {
-        constants filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-    }*/
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.usersList.filter = filterValue.trim().toLowerCase();
+    }
 }

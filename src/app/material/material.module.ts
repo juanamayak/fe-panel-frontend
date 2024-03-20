@@ -10,6 +10,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatPaginatorModule
     ],
     exports: [
         MatToolbarModule,
@@ -37,7 +39,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatPaginatorModule
     ]
 })
 export class MaterialModule {
