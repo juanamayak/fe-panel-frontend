@@ -6,7 +6,7 @@ import {UserRoles} from "../../constants/user-roles";
 import {UsersService} from "../../services/users.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {UserStatuses} from "../../constants/user-status";
+import {UserStatuses} from "../../constants/user-statuses";
 
 @Component({
     selector: 'app-users',

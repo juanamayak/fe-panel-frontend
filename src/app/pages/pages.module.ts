@@ -19,6 +19,15 @@ const routes: Routes = [
     { path: 'pedidos', component: OrdersComponent },
     { path: 'clientes', component: ClientsComponent },
     { path: 'productos', component: ProductsComponent },
+    {
+        path: 'productos',
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('../pages/products/products.module').then(m => m.ProductsModule)
+            }
+        ]
+    },
     { path: 'categorias', component: CategoriesComponent },
     { path: 'florerias', component: ProvidersComponent },
     { path: 'florerias', component: ProvidersComponent },
@@ -38,7 +47,10 @@ const routes: Routes = [
     declarations: [
         HomeComponent,
         OrdersComponent,
-        UsersComponent
+        UsersComponent,
+        ProductsComponent,
+        ClientsComponent,
+        CategoriesComponent
     ],
     imports: [
         CommonModule,
