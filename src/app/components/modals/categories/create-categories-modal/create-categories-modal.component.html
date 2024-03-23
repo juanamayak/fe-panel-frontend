@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Crear categoria</h2>
+<mat-dialog-content>
+    <form [formGroup]="categoriesForm">
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Nombre de la categoria</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput formControlName="name">
+            </mat-form-field>
+        </div>
+    </form>
+
+    <div class="space-x-3">
+        <button mat-stroked-button color="primary" (click)="onNoClick()">Cancelar</button>
+        <button mat-flat-button color="primary" (click)="createCategory()" cdkFocusInitial>Crear categoria</button>
+    </div>
+</mat-dialog-content>

@@ -13,6 +13,8 @@ import {CouponsComponent} from "./coupons/coupons.component";
 import {DeliveryHoursComponent} from "./delivery-hours/delivery-hours.component";
 import {DedicationsComponent} from "./dedications/dedications.component";
 import {LanguagesComponent} from "./languages/languages.component";
+import {ComponentsModule} from "../components/components.module";
+import {SubcategoriesComponent} from "./categories/subcategories/subcategories.component";
 
 const routes: Routes = [
     { path: 'inicio', component: HomeComponent },
@@ -50,12 +52,14 @@ const routes: Routes = [
         UsersComponent,
         ProductsComponent,
         ClientsComponent,
-        CategoriesComponent
+        CategoriesComponent,
+        SubcategoriesComponent
     ],
     imports: [
         CommonModule,
         MaterialModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        ComponentsModule
     ]
 })
 export class PagesModule {

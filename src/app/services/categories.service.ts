@@ -17,4 +17,12 @@ export class CategoriesService {
     getCategories(): Observable<any>{
         return this.httpClient.get(`${this.url}/categories`);
     }
+
+    createCategories(data: any): Observable<any>{
+        return this.httpClient.post(`${this.url}/categories/create`, data);
+    }
+
+    deleteCategories(categoryUuid): Observable<any>{
+        return this.httpClient.put(`${this.url}/categories/delete/${categoryUuid}`, {});
+    }
 }
