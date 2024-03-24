@@ -8,12 +8,16 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {
     CreateSubcategoriesModalComponent
 } from "./modals/subcategories/create-subcategories-modal/create-subcategories-modal.component";
+import {
+    CreateProvidersModalComponent
+} from "./modals/providers/create-providers-modal/create-providers-modal.component";
 
 
 @NgModule({
     declarations: [
         CreateCategoriesModalComponent,
-        CreateSubcategoriesModalComponent
+        CreateSubcategoriesModalComponent,
+        CreateProvidersModalComponent
     ],
     imports: [
         CommonModule,

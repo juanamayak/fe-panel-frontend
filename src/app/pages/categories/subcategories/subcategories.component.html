@@ -2,7 +2,7 @@
     <div class="w-1/3">
         <mat-form-field appearance="outline" class="w-full">
             <i matPrefix class="fa-solid fa-magnifying-glass text-slate-400 ml-3"></i>
-            <input matInput placeholder="Buscar registro por palabra clave">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar registro por palabra clave">
         </mat-form-field>
     </div>
 
@@ -10,7 +10,7 @@
         <i class="fa-solid fa-plus"></i>&nbsp;Crear subcategoria
     </button>
 </div>
-<table mat-table [dataSource]="category.subcategories">
+<table mat-table [dataSource]="this.subcategoriesList">
 
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Subcategoria</th>
@@ -38,7 +38,7 @@
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="deleteSubcategory(element.uuid)">
                     <i class="fa-solid fa-trash"></i>&nbsp;Eliminar
                 </button>
             </mat-menu>

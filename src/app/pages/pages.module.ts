@@ -53,7 +53,8 @@ const routes: Routes = [
         ProductsComponent,
         ClientsComponent,
         CategoriesComponent,
-        SubcategoriesComponent
+        SubcategoriesComponent,
+        ProvidersComponent
     ],
     imports: [
         CommonModule,

@@ -55,7 +55,6 @@ export class CategoriesComponent implements OnInit{
         this.spinner.show();
         this.categoriesService.getCategories().subscribe({
             next: res => {
-                console.log(res.categories);
                 this.categoriesList = new MatTableDataSource(res.categories);
                 this.categoriesList.sort = this.sort;
                 this.categoriesList.paginator = this.paginator;

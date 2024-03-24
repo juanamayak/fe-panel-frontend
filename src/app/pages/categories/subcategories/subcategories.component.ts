@@ -13,6 +13,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
     CreateSubcategoriesModalComponent
 } from "../../../components/modals/subcategories/create-subcategories-modal/create-subcategories-modal.component";
+import {SubcategoriesService} from "../../../services/subcategories.service";
 
 @Component({
     selector: 'app-subcategories',
@@ -34,7 +35,7 @@ export class SubcategoriesComponent implements OnInit {
     public statuses = SubcategoryStatuses;
 
     constructor(
-        private usersService: UsersService,
+        private subcategoriesService: SubcategoriesService,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
         public dialog: MatDialog
@@ -45,6 +46,28 @@ export class SubcategoriesComponent implements OnInit {
         this.subcategoriesList = new MatTableDataSource(this.category.subcategories);
         this.subcategoriesList.sort = this.sort;
         this.subcategoriesList.paginator = this.paginator;
+    }
+
+    deleteSubcategory(subcategoryUuid) {
+        this.alertsService.confirmDelete(`¿Estás seguro de eliminar esta subcategoria?`)
+            .then((res) => {
+                if (res.isConfirmed) {
+                    this.spinner.show();
+                    this.subcategoriesService.deleteSubcategories(subcategoryUuid).subscribe({
+                        next: res => {
+                            this.spinner.hide();
+                            this.alertsService.successAlert((res as any).message);
+                            setTimeout(() => {
+                                this.subcategoryEmmiter.emit();
+                            }, 2500);
+                        },
+                        error: err => {
+                            this.spinner.hide();
+                            this.alertsService.errorAlert(err.error.errors);
+                        }
+                    })
+                }
+            });
     }
 
     openDialog(): void {
@@ -60,5 +83,10 @@ export class SubcategoriesComponent implements OnInit {
                 this.subcategoryEmmiter.emit(result);
             }
         });
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.subcategoriesList.filter = filterValue.trim().toLowerCase();
     }
 }

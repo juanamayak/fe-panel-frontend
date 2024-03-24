@@ -15,11 +15,11 @@ export class SubcategoriesService {
     ) {
     }
 
-    getCategories(): Observable<any> {
-        return this.httpClient.get(`${this.url}/subcategories`);
-    }
-
     createSubcategories(data: any): Observable<any> {
         return this.httpClient.post(`${this.url}/subcategories/create`, data);
+    }
+
+    deleteSubcategories(subcategoryUuid): Observable<any>{
+        return this.httpClient.put(`${this.url}/subcategories/delete/${subcategoryUuid}`, {});
     }
 }
