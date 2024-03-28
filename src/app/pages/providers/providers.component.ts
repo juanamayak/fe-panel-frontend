@@ -13,6 +13,7 @@ import {
     CreateProvidersModalComponent
 } from "../../components/modals/providers/create-providers-modal/create-providers-modal.component";
 import {ProvidersService} from "../../services/providers.service";
+import {EditProvidersModalComponent} from "../../components/modals/providers/edit-providers-modal/edit-providers-modal.component";
 
 @Component({
     selector: 'app-providers',
@@ -56,13 +57,52 @@ export class ProvidersComponent implements OnInit {
         });
     }
 
-    openDialog(): void {
+    openCreateProviderDialog(): void {
         const dialogRef = this.dialog.open(CreateProvidersModalComponent);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                // this.getCategories();
+                this.getProviders();
             }
         });
+    }
+
+    openEditProviderDialog(provider): void {
+        const config = {
+            panelClass: 'w-1/2',
+            data: {
+                provider
+            }
+        }
+        const dialogRef = this.dialog.open(EditProvidersModalComponent, config);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.getProviders();
+            }
+        });
+    }
+
+    deleteProvider(providerUuid) {
+        this.alertsService.confirmDelete(`¿Estás seguro de eliminar este proveedor?`)
+            .then((res) => {
+                if (res.isConfirmed) {
+                    this.spinner.show();
+                    const data = {status: -1};
+                    this.providersService.deleteProviders(providerUuid, data).subscribe({
+                        next: res => {
+                            this.spinner.hide();
+                            this.alertsService.successAlert(res.message);
+                            setTimeout(() => {
+                                this.getProviders();
+                            }, 2500);
+                        },
+                        error: err => {
+                            this.spinner.hide();
+                            this.alertsService.errorAlert(err.error.errors);
+                        }
+                    })
+                }
+            });
     }
 }

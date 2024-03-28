@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Crear usuario</h2>
+<mat-dialog-content>
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <i class="fa-solid fa-user"></i>&nbsp;Información del usuario
+            </ng-template>
+            <form [formGroup]="usersForm">
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Nombre</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <input matInput formControlName="name">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Apellidos</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <input matInput formControlName="lastname">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Correo electrónico</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <input matInput formControlName="email">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Rol administrativo</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <input matInput formControlName="role_id">
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <i class="fa-solid fa-key"></i>&nbsp;Actualizar contraseña
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
+    <div class="space-x-3">
+        <button mat-stroked-button color="primary" (click)="onNoClick()">Cancelar</button>
+        <button mat-flat-button color="primary" (click)="updateUser()" cdkFocusInitial>Editar usuario</button>
+    </div>
+</mat-dialog-content>

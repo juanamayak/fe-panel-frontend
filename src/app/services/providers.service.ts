@@ -23,4 +23,12 @@ export class ProvidersService {
     createProviders(data: any): Observable<any>{
         return this.httpClient.post(`${this.url}/providers/create`, data);
     }
+
+    updateProviders(providerUuid: any, data): Observable<any>{
+        return this.httpClient.put(`${this.url}/providers/update/${providerUuid}`, data);
+    }
+
+    deleteProviders(providerUuid, data): Observable<any>{
+        return this.httpClient.put(`${this.url}/providers/delete/${providerUuid}`, data);
+    }
 }

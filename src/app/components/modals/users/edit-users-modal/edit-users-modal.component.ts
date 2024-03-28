@@ -4,46 +4,49 @@ import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {CategoriesService} from "../../../../services/categories.service";
+import {UsersService} from "../../../../services/users.service";
 import {AlertsService} from "../../../../services/alerts.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {UsersService} from "../../../../services/users.service";
 
 @Component({
-    selector: 'app-create-user-modal',
-    templateUrl: './create-user-modal.component.html',
-    styleUrl: './create-user-modal.component.css'
+    selector: 'app-edit-users-modal',
+    templateUrl: './edit-users-modal.component.html',
+    styleUrl: './edit-users-modal.component.css'
 })
-export class CreateUserModalComponent implements OnInit{
+export class EditUsersModalComponent implements OnInit {
     public usersForm: any;
+
+    public user: any;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private usersService: UsersService,
-        public dialogRef: MatDialogRef<CreateUserModalComponent>,
+        public dialogRef: MatDialogRef<EditUsersModalComponent>,
         private formBuilder: FormBuilder,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
+        this.user = this.data.user;
         this.initForm();
     }
 
 
-    initForm(){
+    initForm() {
         this.usersForm = this.formBuilder.group({
-            role_id: [1, Validators.required],
-            name: ['', Validators.required],
-            lastname: ['', Validators.required],
-            email: ['', Validators.required]
+            role_id: [this.user.role_id, Validators.required],
+            name: [this.user.name, Validators.required],
+            lastname: [this.user.lastname, Validators.required],
+            email: [this.user.email, Validators.required]
         });
     }
 
-    createUser(){
+    updateUser(){
         this.spinner.show();
         const data = this.usersForm.value;
-        this.usersService.createUsers(data).subscribe({
+        this.usersService.updateUsers(this.user.uuid, data).subscribe({
             next: res => {
                 this.spinner.hide();
                 this.alertsService.successAlert(res.message);

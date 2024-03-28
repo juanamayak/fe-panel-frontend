@@ -11,13 +11,19 @@ import {
 import {
     CreateProvidersModalComponent
 } from "./modals/providers/create-providers-modal/create-providers-modal.component";
+import {EditProvidersModalComponent} from "./modals/providers/edit-providers-modal/edit-providers-modal.component";
+import {CreateUserModalComponent} from "./modals/users/create-user-modal/create-user-modal.component";
+import {EditUsersModalComponent} from "./modals/users/edit-users-modal/edit-users-modal.component";
 
 
 @NgModule({
     declarations: [
         CreateCategoriesModalComponent,
         CreateSubcategoriesModalComponent,
-        CreateProvidersModalComponent
+        CreateProvidersModalComponent,
+        EditProvidersModalComponent,
+        CreateUserModalComponent,
+        EditUsersModalComponent
     ],
     imports: [
         CommonModule,

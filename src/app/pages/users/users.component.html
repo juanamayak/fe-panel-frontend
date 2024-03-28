@@ -12,7 +12,7 @@
             </mat-form-field>
         </div>
 
-        <button mat-flat-button color="primary" class="mt-2">
+        <button mat-flat-button color="primary" class="mt-2" (click)="openCreateUsersDialog()">
             <i class="fa-solid fa-plus"></i>&nbsp;Crear usuario
         </button>
     </div>
@@ -78,6 +78,9 @@
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openEditUsersDialog(element)">
+                    <i class="fa-solid fa-edit"></i>&nbsp;Editar
+                </button>
                 <button mat-menu-item (click)="deleteUser(element.uuid)">
                     <i class="fa-solid fa-trash"></i>&nbsp;Eliminar
                 </button>

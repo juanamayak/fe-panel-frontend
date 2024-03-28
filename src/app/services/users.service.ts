@@ -26,6 +26,14 @@ export class UsersService {
         return this.httpClient.get(`${this.url}/users`);
     }
 
+    createUsers(data: any): Observable<any>{
+        return this.httpClient.post(`${this.url}/users/create`, data);
+    }
+
+    updateUsers(userUuid: any, data: any): Observable<any>{
+        return this.httpClient.post(`${this.url}/users/update/${userUuid}`, data);
+    }
+
     updateStatus(userUuid, data): Observable<any>{
         return this.httpClient.put(`${this.url}/users/status/${userUuid}`, data);
     }

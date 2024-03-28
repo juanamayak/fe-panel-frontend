@@ -7,6 +7,12 @@ import {UsersService} from "../../services/users.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {UserStatuses} from "../../constants/user-statuses";
+import {
+    CreateCategoriesModalComponent
+} from "../../components/modals/categories/create-categories-modal/create-categories-modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateUserModalComponent} from "../../components/modals/users/create-user-modal/create-user-modal.component";
+import {EditUsersModalComponent} from "../../components/modals/users/edit-users-modal/edit-users-modal.component";
 
 @Component({
     selector: 'app-users',
@@ -31,6 +37,7 @@ export class UsersComponent implements OnInit {
         private usersService: UsersService,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
+        public dialog: MatDialog
     ) {
     }
 
@@ -50,6 +57,31 @@ export class UsersComponent implements OnInit {
             error: err => {
                 this.spinner.hide()
                 this.alertsService.errorAlert(err.error.errors);
+            }
+        });
+    }
+
+    openCreateUsersDialog(): void {
+        const dialogRef = this.dialog.open(CreateUserModalComponent);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result){
+                this.getUsers();
+            }
+        });
+    }
+
+    openEditUsersDialog(user): void {
+        const config = {
+            data: {
+                user
+            }
+        }
+        const dialogRef = this.dialog.open(EditUsersModalComponent, config);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result){
+                this.getUsers();
             }
         });
     }

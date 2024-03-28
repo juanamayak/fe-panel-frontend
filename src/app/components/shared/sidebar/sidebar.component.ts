@@ -154,5 +154,15 @@ export const ROUTES = [
         icon: 'fa-globe',
         class: '',
         role: [null]
+    },
+    {
+        path: '/roles',
+        group: 'CONFIGURACIÓN',
+        module: 'users',
+        action: 'list',
+        title: 'Roles',
+        icon: 'fa-shield-halved',
+        class: '',
+        role: [null]
     }
 ];
