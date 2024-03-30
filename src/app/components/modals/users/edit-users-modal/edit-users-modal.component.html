@@ -1,46 +1,71 @@
-<h2 mat-dialog-title>Crear usuario</h2>
+<h2 mat-dialog-title>Editar usuario</h2>
 <mat-dialog-content>
-    <mat-tab-group>
+    <!--<mat-tab-group>
         <mat-tab>
             <ng-template mat-tab-label>
                 <i class="fa-solid fa-user"></i>&nbsp;Información del usuario
             </ng-template>
-            <form [formGroup]="usersForm">
-                <div>
-                    <mat-label class="text-sm font-medium text-slate-500">Nombre</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput formControlName="name">
-                    </mat-form-field>
-                </div>
 
-                <div>
-                    <mat-label class="text-sm font-medium text-slate-500">Apellidos</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput formControlName="lastname">
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-label class="text-sm font-medium text-slate-500">Correo electrónico</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput formControlName="email">
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-label class="text-sm font-medium text-slate-500">Rol administrativo</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput formControlName="role_id">
-                    </mat-form-field>
-                </div>
-            </form>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
                 <i class="fa-solid fa-key"></i>&nbsp;Actualizar contraseña
             </ng-template>
+            <form [formGroup]="passwordForm" class="my-5">
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Nueva contraseña</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Confirmar contraseña</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirm_password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+                &lt;!&ndash;<button mat-button color="primary" (click)="showPassword()"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    {{hide ? 'Ver contraseña' : 'Ocultar contraseña'}}
+                </button>&ndash;&gt;
+            </form>
         </mat-tab>
-    </mat-tab-group>
+    </mat-tab-group>-->
+
+    <form [formGroup]="usersForm" class="mt-5">
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Nombre</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput formControlName="name">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Apellidos</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput formControlName="lastname">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Correo electrónico</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput formControlName="email">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Rol administrativo</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput formControlName="role_id">
+            </mat-form-field>
+        </div>
+    </form>
 
     <div class="space-x-3">
         <button mat-stroked-button color="primary" (click)="onNoClick()">Cancelar</button>

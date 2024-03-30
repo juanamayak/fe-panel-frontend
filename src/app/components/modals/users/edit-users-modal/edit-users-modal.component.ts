@@ -15,8 +15,10 @@ import {NgxSpinnerService} from "ngx-spinner";
 })
 export class EditUsersModalComponent implements OnInit {
     public usersForm: any;
+    public passwordForm: any;
 
     public user: any;
+    public hide = true;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,16 +32,21 @@ export class EditUsersModalComponent implements OnInit {
 
     ngOnInit(): void {
         this.user = this.data.user;
-        this.initForm();
+        this.initForms();
     }
 
 
-    initForm() {
+    initForms() {
         this.usersForm = this.formBuilder.group({
             role_id: [this.user.role_id, Validators.required],
             name: [this.user.name, Validators.required],
             lastname: [this.user.lastname, Validators.required],
             email: [this.user.email, Validators.required]
+        });
+
+        this.passwordForm = this.formBuilder.group({
+            password: ['', Validators.required],
+            confirm_password: ['', Validators.required]
         });
     }
 
@@ -59,6 +66,10 @@ export class EditUsersModalComponent implements OnInit {
                 this.alertsService.errorAlert(err.error.errors);
             }
         })
+    }
+
+    showPassword(){
+        this.hide = !this.hide;
     }
 
     onNoClick(): void {
