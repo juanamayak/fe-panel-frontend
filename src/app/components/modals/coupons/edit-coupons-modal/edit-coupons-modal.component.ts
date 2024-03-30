@@ -1,26 +1,26 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {CouponsService} from "../../../../services/coupons.service";
+import {FormBuilder, Validators} from "@angular/forms";
 import {AlertsService} from "../../../../services/alerts.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {CouponsService} from "../../../../services/coupons.service";
-import * as moment from "moment";
+import * as moment from "moment/moment";
 
 @Component({
-    selector: 'app-create-coupons-modal',
-    templateUrl: './create-coupons-modal.component.html',
-    styleUrl: './create-coupons-modal.component.css'
+    selector: 'app-edit-coupons-modal',
+    templateUrl: './edit-coupons-modal.component.html',
+    styleUrl: './edit-coupons-modal.component.css'
 })
-export class CreateCouponsModalComponent implements OnInit {
+export class EditCouponsModalComponent implements OnInit {
     public couponsForm: any;
-
 
     public minDate = moment().format();
 
+    public coupon: any;
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private couponsService: CouponsService,
-        public dialogRef: MatDialogRef<CreateCouponsModalComponent>,
+        public dialogRef: MatDialogRef<EditCouponsModalComponent>,
         private formBuilder: FormBuilder,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
@@ -28,23 +28,23 @@ export class CreateCouponsModalComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.coupon = this.data.coupon;
         this.initForm();
     }
 
-    initForm(){
+    initForm() {
         this.couponsForm = this.formBuilder.group({
-            coupon: ['', Validators.required],
-            quantity: ['', Validators.required],
-            discount_percent: ['', Validators.required],
-            expiration: ['', Validators.required]
+            coupon: [this.coupon.coupon, Validators.required],
+            quantity: [this.coupon.quantity.toString(), Validators.required],
+            discount_percent: [this.coupon.discount_percent.toString(), Validators.required],
+            expiration: [this.coupon.expiration, Validators.required]
         });
     }
 
-    createCoupon(){
+    updateCoupon(){
         this.spinner.show();
         const data = this.couponsForm.value;
-
-        this.couponsService.createCoupons(data).subscribe({
+        this.couponsService.updateCoupons(this.coupon.uuid, data).subscribe({
             next: res => {
                 this.spinner.hide();
                 this.alertsService.successAlert(res.message);
@@ -62,5 +62,4 @@ export class CreateCouponsModalComponent implements OnInit {
     onNoClick(): void {
         this.dialogRef.close();
     }
-
 }

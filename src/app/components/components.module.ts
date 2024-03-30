@@ -14,6 +14,14 @@ import {
 import {EditProvidersModalComponent} from "./modals/providers/edit-providers-modal/edit-providers-modal.component";
 import {CreateUserModalComponent} from "./modals/users/create-user-modal/create-user-modal.component";
 import {EditUsersModalComponent} from "./modals/users/edit-users-modal/edit-users-modal.component";
+import {CreateCouponsModalComponent} from "./modals/coupons/create-coupons-modal/create-coupons-modal.component";
+import {EditCouponsModalComponent} from "./modals/coupons/edit-coupons-modal/edit-coupons-modal.component";
+import {
+    CreateDedicationsModalComponent
+} from "./modals/dedications/create-dedications-modal/create-dedications-modal.component";
+import {
+    EditDedicationsModalComponent
+} from "./modals/dedications/edit-dedications-modal/edit-dedications-modal.component";
 
 
 @NgModule({
@@ -23,7 +31,11 @@ import {EditUsersModalComponent} from "./modals/users/edit-users-modal/edit-user
         CreateProvidersModalComponent,
         EditProvidersModalComponent,
         CreateUserModalComponent,
-        EditUsersModalComponent
+        EditUsersModalComponent,
+        CreateCouponsModalComponent,
+        EditCouponsModalComponent,
+        CreateDedicationsModalComponent,
+        EditDedicationsModalComponent
     ],
     imports: [
         CommonModule,

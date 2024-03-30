@@ -55,7 +55,8 @@ const routes: Routes = [
         CategoriesComponent,
         SubcategoriesComponent,
         ProvidersComponent,
-        CouponsComponent
+        CouponsComponent,
+        DedicationsComponent
     ],
     imports: [
         CommonModule,

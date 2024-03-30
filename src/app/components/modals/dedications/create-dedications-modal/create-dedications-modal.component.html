@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Crear dedicatoria</h2>
+<mat-dialog-content>
+    <form [formGroup]="dedicationsForm">
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Titulo</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput formControlName="title">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-label class="text-sm font-medium text-slate-500">Dedicatoria</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
+                <textarea matInput formControlName="message"></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <div class="space-x-3">
+        <button mat-stroked-button color="primary" (click)="onNoClick()">Cancelar</button>
+        <button mat-flat-button color="primary" (click)="createDedication()" cdkFocusInitial>Crear dedicatoria</button>
+    </div>
+</mat-dialog-content>

@@ -13,6 +13,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import {MatTabsModule} from "@angular/material/tabs";
         MatPaginatorModule,
         MatDialogModule,
         MatSelectModule,
-        MatTabsModule
+        MatTabsModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     exports: [
         MatToolbarModule,
@@ -48,7 +52,9 @@ import {MatTabsModule} from "@angular/material/tabs";
         MatPaginatorModule,
         MatDialogModule,
         MatSelectModule,
-        MatTabsModule
+        MatTabsModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ]
 })
 export class MaterialModule {

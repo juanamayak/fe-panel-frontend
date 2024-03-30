@@ -106,16 +106,6 @@ export const ROUTES = [
         role: [null]
     },
     {
-        path: '/usuarios',
-        group: 'CONFIGURACIÓN',
-        module: 'users',
-        action: 'list',
-        title: 'Usuarios',
-        icon: 'fa-user-gear',
-        class: '',
-        role: [null]
-    },
-    {
         path: '/cupones',
         group: 'CONFIGURACIÓN',
         module: 'users',
@@ -124,7 +114,7 @@ export const ROUTES = [
         icon: 'fa-ticket',
         class: '',
         role: [null]
-    },
+    },/*
     {
         path: '/horarios',
         group: 'CONFIGURACIÓN',
@@ -134,7 +124,7 @@ export const ROUTES = [
         icon: 'fa-clock',
         class: '',
         role: [null]
-    },
+    },*/
     {
         path: '/dedicatorias',
         group: 'CONFIGURACIÓN',
@@ -144,7 +134,7 @@ export const ROUTES = [
         icon: 'fa-comment',
         class: '',
         role: [null]
-    },
+    },/*
     {
         path: '/idiomas',
         group: 'CONFIGURACIÓN',
@@ -152,6 +142,16 @@ export const ROUTES = [
         action: 'list',
         title: 'Idiomas',
         icon: 'fa-globe',
+        class: '',
+        role: [null]
+    },*/
+    {
+        path: '/usuarios',
+        group: 'CONFIGURACIÓN',
+        module: 'users',
+        action: 'list',
+        title: 'Usuarios',
+        icon: 'fa-user-gear',
         class: '',
         role: [null]
     },
