@@ -1,0 +1,47 @@
+<div class="relative flex flex-col py-5 px-8 space-y-5 bg-white">
+    <div class="text-4xl font-bold">Roles</div>
+    <div class="flex justify-between">
+        <div class="w-1/3">
+            <mat-form-field appearance="outline" class="w-full">
+                <i matPrefix class="fa-solid fa-magnifying-glass text-slate-400 ml-3"></i>
+                <input matInput  (keyup)="applyFilter($event)"  placeholder="Buscar registro por palabra clave">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<table mat-table [dataSource]="rolesList">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre del rol</th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Acción</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary" (click)="openManagePermissionsModal()">
+                <i class="fa-solid fa-shield-halved"></i>&nbsp;Administrar permisos
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 30, 50]"
+               showFirstLastButtons
+               aria-label="Select page of periodic elements">
+</mat-paginator>
+

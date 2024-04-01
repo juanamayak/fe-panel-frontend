@@ -15,6 +15,7 @@ import {DedicationsComponent} from "./dedications/dedications.component";
 import {LanguagesComponent} from "./languages/languages.component";
 import {ComponentsModule} from "../components/components.module";
 import {SubcategoriesComponent} from "./categories/subcategories/subcategories.component";
+import {RolesComponent} from "./roles/roles.component";
 
 const routes: Routes = [
     { path: 'inicio', component: HomeComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
     { path: 'florerias', component: ProvidersComponent },
     { path: 'florerias', component: ProvidersComponent },
     { path: 'usuarios', component: UsersComponent },
+    { path: 'roles', component: RolesComponent },
     { path: 'cupones', component: CouponsComponent },
     { path: 'horarios', component: DeliveryHoursComponent },
     { path: 'dedicatorias', component: DedicationsComponent },
@@ -56,7 +58,8 @@ const routes: Routes = [
         SubcategoriesComponent,
         ProvidersComponent,
         CouponsComponent,
-        DedicationsComponent
+        DedicationsComponent,
+        RolesComponent
     ],
     imports: [
         CommonModule,

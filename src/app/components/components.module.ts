@@ -22,6 +22,9 @@ import {
 import {
     EditDedicationsModalComponent
 } from "./modals/dedications/edit-dedications-modal/edit-dedications-modal.component";
+import {
+    ManagePermissionsModalComponent
+} from "./modals/permissions/manage-permissions-modal/manage-permissions-modal.component";
 
 
 @NgModule({
@@ -35,7 +38,8 @@ import {
         CreateCouponsModalComponent,
         EditCouponsModalComponent,
         CreateDedicationsModalComponent,
-        EditDedicationsModalComponent
+        EditDedicationsModalComponent,
+        ManagePermissionsModalComponent
     ],
     imports: [
         CommonModule,
