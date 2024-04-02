@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
+import {MatTableDataSource} from "@angular/material/table";
+import {CategoriesService} from "../../../services/categories.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {AlertsService} from "../../../services/alerts.service";
+import {ProvidersService} from "../../../services/providers.service";
 
 interface Image {
     url: string;
@@ -13,16 +18,77 @@ interface Image {
   templateUrl: './create-products.component.html',
   styleUrl: './create-products.component.css'
 })
-export class CreateProductsComponent {
+export class CreateProductsComponent implements OnInit{
+
+    public productForm: any;
+
+    public categories: any;
+    public subcategories: any;
+    public providers: any;
 
     public files: Image[] = [];
 
     toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
     constructor(
+        private categoriesService: CategoriesService,
+        private providersService: ProvidersService,
         private formBuilder: FormBuilder,
+        private alertsService: AlertsService,
+        private spinner: NgxSpinnerService,
         private location: Location,
     ) {
+    }
+
+    ngOnInit(){
+        this.getCategories();
+    }
+
+    initProductForm(){
+        this.productForm = this.formBuilder.group({
+            category_id: ['', Validators.required],
+            name: ['', Validators.required],
+            price: ['', Validators.required],
+            discount_percent: [''],
+            subcategories: [[], Validators.required],
+            providers: [[], Validators.required],
+            description: ['', Validators.required]
+        });
+    }
+
+    getCategories() {
+        this.spinner.show();
+        this.categoriesService.getCategories().subscribe({
+            next: res => {
+                console.log(res.categories);
+                this.categories = res.categories;
+                this.getProviders();
+            },
+            error: err => {
+                this.spinner.hide()
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        });
+    }
+
+    getProviders() {
+        this.providersService.gerProviders().subscribe({
+            next: res => {
+                this.providers = res.providers;
+                this.initProductForm();
+                this.spinner.hide();
+            },
+            error: err => {
+                this.spinner.hide();
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        });
+    }
+
+    getSubcategories(event){
+        const categoryId = event.value;
+        const category = this.categories.find(cat => cat.id === categoryId);
+        this.subcategories = category.subcategories;
     }
 
     onFileSelected(event: any) {
