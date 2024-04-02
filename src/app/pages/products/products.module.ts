@@ -4,6 +4,8 @@ import {RouterModule, Routes} from "@angular/router";
 import {CreateProductsComponent} from "./create-products/create-products.component";
 import {ProductsComponent} from "./products.component";
 import {MaterialModule} from "../../material/material.module";
+import {CurrencyMaskModule} from "ng2-currency-mask";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 const routes: Routes = [
     {
@@ -30,6 +32,9 @@ const routes: Routes = [
         CommonModule,
         MaterialModule,
         RouterModule.forChild(routes),
+        CurrencyMaskModule,
+        FormsModule,
+        ReactiveFormsModule,
     ]
 })
 export class ProductsModule {

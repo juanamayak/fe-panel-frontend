@@ -7,6 +7,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LayoutsModule} from "./layouts/layouts.module";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {JwtInterceptor} from "./interceptors/jwt.interceptor";
+import {CurrencyMaskModule} from "ng2-currency-mask";
 
 interface NgxSpinnerConfig {
     type?: string;
@@ -22,6 +23,7 @@ interface NgxSpinnerConfig {
         HttpClientModule,
         NgxSpinnerModule.forRoot({type: 'ball-scale-multiple'}),
         BrowserAnimationsModule,
+        CurrencyMaskModule,
         LayoutsModule
     ],
     providers: [
