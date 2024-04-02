@@ -155,7 +155,7 @@ export const ROUTES = [
         class: '',
         role: [null]
     },
-    {
+    /*{
         path: '/roles',
         group: 'CONFIGURACIÓN',
         module: 'users',
@@ -164,5 +164,5 @@ export const ROUTES = [
         icon: 'fa-shield-halved',
         class: '',
         role: [null]
-    }
+    }*/
 ];

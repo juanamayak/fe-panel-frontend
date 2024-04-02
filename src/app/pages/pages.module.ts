@@ -21,7 +21,6 @@ const routes: Routes = [
     { path: 'inicio', component: HomeComponent },
     { path: 'pedidos', component: OrdersComponent },
     { path: 'clientes', component: ClientsComponent },
-    { path: 'productos', component: ProductsComponent },
     {
         path: 'productos',
         children: [
@@ -35,7 +34,15 @@ const routes: Routes = [
     { path: 'florerias', component: ProvidersComponent },
     { path: 'florerias', component: ProvidersComponent },
     { path: 'usuarios', component: UsersComponent },
-    { path: 'roles', component: RolesComponent },
+    {
+        path: 'roles',
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('../pages/roles/roles.module').then(m => m.RolesModule)
+            }
+        ]
+    },
     { path: 'cupones', component: CouponsComponent },
     { path: 'horarios', component: DeliveryHoursComponent },
     { path: 'dedicatorias', component: DedicationsComponent },
@@ -52,14 +59,12 @@ const routes: Routes = [
         HomeComponent,
         OrdersComponent,
         UsersComponent,
-        ProductsComponent,
         ClientsComponent,
         CategoriesComponent,
         SubcategoriesComponent,
         ProvidersComponent,
         CouponsComponent,
-        DedicationsComponent,
-        RolesComponent
+        DedicationsComponent
     ],
     imports: [
         CommonModule,

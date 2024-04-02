@@ -1,36 +1,38 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
-import {CreateProductsComponent} from "./create-products/create-products.component";
-import {ProductsComponent} from "./products.component";
+import {PermissionsComponent} from "./permissions/permissions.component";
+import {RolesComponent} from "./roles.component";
 import {MaterialModule} from "../../material/material.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 const routes: Routes = [
     {
         path: '',
-        component: ProductsComponent
+        component: RolesComponent
     },
     {
-        path: 'crear',
-        component: CreateProductsComponent
+        path: 'permisos',
+        component: PermissionsComponent
     },
     {
         path: '',
-        redirectTo: 'crear',
+        redirectTo: '',
         pathMatch: 'full'
     }
 ];
 
 @NgModule({
     declarations: [
-        CreateProductsComponent,
-        ProductsComponent
+        PermissionsComponent,
+        RolesComponent
     ],
     imports: [
         CommonModule,
         MaterialModule,
         RouterModule.forChild(routes),
+        ReactiveFormsModule,
     ]
 })
-export class ProductsModule {
+export class RolesModule {
 }

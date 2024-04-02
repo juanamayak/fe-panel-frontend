@@ -1,17 +1,6 @@
 export const Permissions = [
     {
-        module: 'orders',
-        permissions: [
-            { action: 'list' },
-        ]
-    },
-    {
-        module: 'clients',
-        permissions: [
-            { action: 'list' },
-        ]
-    },
-    {
+        name: 'Productos',
         module: 'products',
         permissions: [
             { action: 'list' },
@@ -21,6 +10,7 @@ export const Permissions = [
         ]
     },
     {
+        name: 'Categorias',
         module: 'categories',
         permissions: [
             { action: 'list' },
@@ -29,6 +19,7 @@ export const Permissions = [
         ]
     },
     {
+        name: 'Proveedores',
         module: 'providers',
         permissions: [
             { action: 'list' },
@@ -38,6 +29,7 @@ export const Permissions = [
         ]
     },
     {
+        name: 'Cupones',
         module: 'cupones',
         permissions: [
             { action: 'list' },
@@ -48,6 +40,7 @@ export const Permissions = [
         ]
     },
     {
+        name: 'Mensajes',
         module: 'messages',
         permissions: [
             { action: 'list' },
@@ -57,6 +50,23 @@ export const Permissions = [
         ]
     },
     {
+        name: 'Ordenes',
+        module: 'orders',
+        permissions: [
+            { action: 'list' },
+        ]
+    },
+    {
+        name: 'Clientes',
+        module: 'clients',
+        permissions: [
+            { action: 'list' },
+        ]
+    },
+
+
+    {
+        name: 'Usuarios',
         module: 'users',
         permissions: [
             { action: 'list' },
@@ -66,6 +76,7 @@ export const Permissions = [
         ]
     },
     {
+        name: 'Roles',
         module: 'roles',
         permissions: [
             { action: 'list' }

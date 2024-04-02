@@ -1,0 +1,60 @@
+<div class="relative flex flex-col py-5 px-8 space-y-5 bg-white">
+    <div class="flex space-x-5">
+        <button mat-mini-fab color="primary" (click)="goBack()">
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+        <div class="text-4xl font-bold">Permisos</div>
+    </div>
+</div>
+
+<!--<form [formGroup]="permissionsForm" >
+    <div formArrayName="permisos">
+        <div *ngFor="let group of permissionsForm.get('permisos').controls; let i = index" [formGroupName]="i">
+            <h3>{{ group.value.name }}</h3>
+            <ul>
+                <li *ngFor="let permission of group.get('permissions').controls; let j = index" [formGroupName]="j">
+                    <mat-checkbox formControlName="action">{{ permission.value.action }}</mat-checkbox>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button type="submit">Enviar</button>
+</form>-->
+
+<div class="m-8 space-y-8">
+    <div class="grid grid-cols-2">
+        <div class="flex p-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+             role="alert">
+            <i class="fa-solid fa-circle-exclamation mt-1 mr-3"></i>
+            <div class="text-justify">
+                <span class="font-medium">¡Estás a punto de modificar los permisos de este sistema!</span>
+                Los cambios que realices podrían afectar el funcionamiento y la seguridad del sistema. Por favor,
+                asegúrate de
+                tener la autorización adecuada y de entender las implicaciones de tus acciones antes de proceder.
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2">
+        <div>
+            <h3>Asigna los permisos para el rol: SUPERADMIN</h3>
+            <div class="grid grid-cols-3 grid-rows-3">
+                @for (item of permissions; track item) {
+                    <div>
+                        <h3 class="capitalize my-3 font-semibold text-amber-600">{{ item.name }}</h3>
+                        <ul >
+                            @for (permission of item.permissions; track permission) {
+                                <li>
+                                    <mat-checkbox>
+                                        <span class="uppercase">{{ permission.action }}</span>
+                                    </mat-checkbox>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,15 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {UsersService} from "../../services/users.service";
 import {AlertsService} from "../../services/alerts.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {MatDialog} from "@angular/material/dialog";
 import {RolesService} from "../../services/roles.service";
-import {CreateUserModalComponent} from "../../components/modals/users/create-user-modal/create-user-modal.component";
-import {
-    ManagePermissionsModalComponent
-} from "../../components/modals/permissions/manage-permissions-modal/manage-permissions-modal.component";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-roles',
@@ -29,7 +25,7 @@ export class RolesComponent implements OnInit {
         private rolesService: RolesService,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
-        public dialog: MatDialog
+        private router: Router
     ) {
     }
 
@@ -51,10 +47,6 @@ export class RolesComponent implements OnInit {
                 this.alertsService.errorAlert(err.error.errors);
             }
         });
-    }
-
-    openManagePermissionsModal(){
-        this.dialog.open(ManagePermissionsModalComponent, { panelClass: 'w-1/3'});
     }
 
     applyFilter(event: Event) {
