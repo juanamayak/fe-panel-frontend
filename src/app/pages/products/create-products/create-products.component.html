@@ -78,15 +78,17 @@
                                     <mat-form-field appearance="outline" class="w-full">
                                         <mat-select multiple formControlName="subcategories">
                                             <mat-select-trigger>
-                                                <!--{{toppings.value?.[0] || ''}}
-                                                @if ((toppings.value?.length || 0) > 1) {
-                                                    <span class="example-additional-selection">
-                                                      (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                                                @if(_subcategories.value?.[0]){
+                                                    {{_subcategories.value?.[0].name || ''}}
+                                                }
+                                                @if ((_subcategories.value?.length || 0) > 1) {
+                                                    <span class="text-xs text-slate-400">
+                                                      (+{{(_subcategories.value?.length || 0) - 1}} {{_subcategories.value?.length === 2 ? 'subcategoria' : 'subcategorias'}})
                                                     </span>
-                                                }-->
+                                                }
                                             </mat-select-trigger>
                                             @for (subcategory of subcategories; track subcategory) {
-                                                <mat-option [value]="subcategory.id">{{ subcategory.name }}</mat-option>
+                                                <mat-option [value]="subcategory">{{ subcategory.name }}</mat-option>
                                             }
                                         </mat-select>
                                     </mat-form-field>
@@ -99,15 +101,17 @@
                                 <mat-form-field appearance="outline" class="w-1/2">
                                     <mat-select multiple formControlName="providers">
                                         <mat-select-trigger>
-                                            <!--{{toppings.value?.[0] || ''}}
-                                            @if ((toppings.value?.length || 0) > 1) {
-                                                <span class="example-additional-selection">
-                                                  (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-                                                </span>
-                                            }-->
+                                            @if(_providers.value?.[0]){
+                                                {{_providers.value?.[0].name || ''}}
+                                            }
+                                            @if ((_providers.value?.length || 0) > 1) {
+                                                <span class="text-xs text-slate-400">
+                                                      (+{{(_providers.value?.length || 0) - 1}} {{_providers.value?.length === 2 ? 'proveedor' : 'proveedores'}})
+                                                    </span>
+                                            }
                                         </mat-select-trigger>
-                                        @for (topping of toppingList; track topping) {
-                                            <mat-option [value]="topping">{{ topping }}</mat-option>
+                                        @for (provider of providers; track provider) {
+                                            <mat-option [value]="provider">{{ provider.name }}</mat-option>
                                         }
                                     </mat-select>
                                 </mat-form-field>
@@ -151,7 +155,7 @@
                 </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <button mat-flat-button color="primary">
+                    <button mat-flat-button color="primary" (click)="createProduct()">
                         <i class="fa-solid fa-circle-check"></i>&nbsp;Crear producto
                     </button>
                 </div>

@@ -18,4 +18,8 @@ export class ProductsService {
     getProducts(): Observable<any>{
         return this.httpClient.get(`${this.url}/products`);
     }
+
+    createProducts(data: any): Observable<any>{
+        return this.httpClient.post(`${this.url}/products/create`, data);
+    }
 }

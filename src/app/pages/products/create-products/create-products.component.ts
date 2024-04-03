@@ -6,6 +6,7 @@ import {CategoriesService} from "../../../services/categories.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {AlertsService} from "../../../services/alerts.service";
 import {ProvidersService} from "../../../services/providers.service";
+import {ProductsService} from "../../../services/products.service";
 
 interface Image {
     url: string;
@@ -31,6 +32,7 @@ export class CreateProductsComponent implements OnInit{
     toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
     constructor(
+        private productsService: ProductsService,
         private categoriesService: CategoriesService,
         private providersService: ProvidersService,
         private formBuilder: FormBuilder,
@@ -54,6 +56,34 @@ export class CreateProductsComponent implements OnInit{
             providers: [[], Validators.required],
             description: ['', Validators.required]
         });
+    }
+
+    createProduct(){
+        this.spinner.show();
+        const providers = this._providers.value.map(provider => provider.id);
+        const subcategories = this._subcategories.value.map(subcategory => subcategory.id);
+        const data = {
+            category_id: this.productForm.value.category_id,
+            description: this.productForm.value.description,
+            discount_percent: this.productForm.value.discount_percent,
+            name: this.productForm.value.name,
+            price: this.productForm.value.price,
+            providers: providers,
+            subcategories: subcategories
+        };
+        this.productsService.createProducts(data).subscribe({
+            next: res => {
+                this.spinner.hide();
+                this.alertsService.successAlert(res.message);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            },
+            error: err => {
+                this.spinner.hide()
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        })
     }
 
     getCategories() {
@@ -100,12 +130,9 @@ export class CreateProductsComponent implements OnInit{
                 this.files.push({ url: reader.result as string, file, hovered: false });
             };
         });
-
-        console.log(this.files.length);
     }
 
     deleteImage(image: Image) {
-        console.log(image)
         const index = this.files.indexOf(image);
         if (index !== -1) {
             this.files.splice(index, 1);
@@ -114,5 +141,13 @@ export class CreateProductsComponent implements OnInit{
 
     goBack(){
         this.location.back();
+    }
+
+    get _subcategories() {
+        return this.productForm.get("subcategories");
+    }
+
+    get _providers() {
+        return this.productForm.get("providers");
     }
 }
