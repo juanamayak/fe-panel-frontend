@@ -12,6 +12,7 @@ import {UsersService} from "../../services/users.service";
 import {AlertsService} from "../../services/alerts.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ProductsService} from "../../services/products.service";
+import {LoginComponent} from "../auth/login/login.component";
 
 @Component({
     selector: 'app-products',
@@ -44,7 +45,8 @@ export class ProductsComponent implements OnInit {
         this.spinner.show();
         this.productsService.getProducts().subscribe({
             next: res => {
-                this.productsList = new MatTableDataSource(res.productos);
+                console.log(res);
+                this.productsList = new MatTableDataSource(res.products);
                 this.productsList.sort = this.sort;
                 this.productsList.paginator = this.paginator;
                 this.spinner.hide()

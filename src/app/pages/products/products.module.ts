@@ -6,6 +6,7 @@ import {ProductsComponent} from "./products.component";
 import {MaterialModule} from "../../material/material.module";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
     {
@@ -17,6 +18,10 @@ const routes: Routes = [
         component: CreateProductsComponent
     },
     {
+        path: ':uuid',
+        component: ProductDetailsComponent
+    },
+    {
         path: '',
         redirectTo: 'crear',
         pathMatch: 'full'
@@ -26,7 +31,8 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         CreateProductsComponent,
-        ProductsComponent
+        ProductsComponent,
+        ProductDetailsComponent
     ],
     imports: [
         CommonModule,

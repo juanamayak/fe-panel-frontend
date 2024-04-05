@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {Location} from "@angular/common";
-import {MatTableDataSource} from "@angular/material/table";
-import {CategoriesService} from "../../../services/categories.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {AlertsService} from "../../../services/alerts.service";
-import {ProvidersService} from "../../../services/providers.service";
+import {Location} from "@angular/common";
 import {ProductsService} from "../../../services/products.service";
+import {CategoriesService} from "../../../services/categories.service";
+import {ProvidersService} from "../../../services/providers.service";
+import {FormBuilder, Validators} from "@angular/forms";
+import {AlertsService} from "../../../services/alerts.service";
+import {ActivatedRoute} from "@angular/router";
 
 interface Image {
     url: string;
@@ -14,13 +14,15 @@ interface Image {
 }
 
 @Component({
-  selector: 'app-create-products',
-  templateUrl: './create-products.component.html',
-  styleUrl: './create-products.component.css'
+    selector: 'app-product-details',
+    templateUrl: './product-details.component.html',
+    styleUrls: ['./product-details.component.css']
 })
-export class CreateProductsComponent implements OnInit{
+export class ProductDetailsComponent implements OnInit {
 
     public productForm: any;
+
+    public product: any;
 
     public categories: any;
     public subcategories: any;
@@ -36,14 +38,35 @@ export class CreateProductsComponent implements OnInit{
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
         private location: Location,
+        private activatedRoute: ActivatedRoute
     ) {
     }
 
-    ngOnInit(){
-        this.getCategories();
+    ngOnInit() {
+        this.getProduct();
     }
 
-    initProductForm(){
+    getProduct(){
+        this.activatedRoute.params.subscribe((params) => {
+            if (params) {
+                this.spinner.show();
+                const productUuid = params['uuid'];
+                this.productsService.getProduct(productUuid).subscribe({
+                    next: res => {
+                        this.product = res.product;
+                        console.log(this.product);
+                        this.getCategories();
+                    },
+                    error: err => {
+                        this.spinner.hide()
+                        this.alertsService.errorAlert(err.error.errors);
+                    }
+                });
+            }
+        });
+    }
+
+    initProductForm() {
         this.productForm = this.formBuilder.group({
             category_id: ['', Validators.required],
             name: ['', Validators.required],
@@ -55,7 +78,7 @@ export class CreateProductsComponent implements OnInit{
         });
     }
 
-    createProduct(){
+    createProduct() {
         this.spinner.show();
         const product = this.productForm.value;
         const providers = this._providers.value.map(provider => provider.id);
@@ -94,7 +117,6 @@ export class CreateProductsComponent implements OnInit{
         this.spinner.show();
         this.categoriesService.getCategories().subscribe({
             next: res => {
-                console.log(res.categories);
                 this.categories = res.categories;
                 this.getProviders();
             },
@@ -119,7 +141,7 @@ export class CreateProductsComponent implements OnInit{
         });
     }
 
-    getSubcategories(event){
+    getSubcategories(event) {
         const categoryId = event.value;
         const category = this.categories.find(cat => cat.id === categoryId);
         this.subcategories = category.subcategories;
@@ -131,7 +153,7 @@ export class CreateProductsComponent implements OnInit{
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
-                this.files.push({ url: reader.result as string, file});
+                this.files.push({url: reader.result as string, file});
             };
         });
     }
@@ -143,7 +165,7 @@ export class CreateProductsComponent implements OnInit{
         }
     }
 
-    goBack(){
+    goBack() {
         this.location.back();
     }
 
@@ -154,4 +176,5 @@ export class CreateProductsComponent implements OnInit{
     get _providers() {
         return this.productForm.get("providers");
     }
+
 }
