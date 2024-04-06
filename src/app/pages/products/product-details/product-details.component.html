@@ -3,7 +3,9 @@
         <button mat-button color="primary" (click)="goBack()">
             <i class="fa-solid fa-angle-left fa-xl"></i>
         </button>
-        <p class="text-3xl font-bold">{{ product.name }}</p>
+        @if (product){
+            <p class="text-3xl font-bold">{{ product.name }}</p>
+        }
     </div>
 </div>
 
@@ -36,36 +38,42 @@
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <mat-checkbox>¿Tiene descuento?</mat-checkbox>
+                                    <mat-checkbox (change)="showDiscountSelect($event)"
+                                                  [checked]="this.product.discount_percent ? true : false">
+                                        ¿Tiene descuento?
+                                    </mat-checkbox>
                                 </div>
                             </div>
 
-                            <div class="mr-5">
-                                <mat-label class="block text-sm font-medium leading-6 text-gray-900">Porcentaje de
-                                    descuento
-                                </mat-label>
-                                <mat-form-field appearance="outline" class="w-1/2">
-                                    <mat-select formControlName="discount_percent">
-                                        <mat-option value="10">10%</mat-option>
-                                        <mat-option value="20">20%</mat-option>
-                                        <mat-option value="30">30%</mat-option>
-                                        <mat-option value="40">40%</mat-option>
-                                        <mat-option value="50">50%</mat-option>
-                                        <mat-option value="60">60%</mat-option>
-                                        <mat-option value="70">70%</mat-option>
-                                        <mat-option value="80">80%</mat-option>
-                                        <mat-option value="90">90%</mat-option>
-                                        <mat-option value="100">100%</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                            @if (discountSelect) {
+                                <div class="mr-5">
+                                    <mat-label class="block text-sm font-medium leading-6 text-gray-900">Porcentaje de
+                                        descuento
+                                    </mat-label>
+                                    <mat-form-field appearance="outline" class="w-1/2">
+                                        <mat-select formControlName="discount_percent">
+                                            <mat-option value="10">10%</mat-option>
+                                            <mat-option value="20">20%</mat-option>
+                                            <mat-option value="30">30%</mat-option>
+                                            <mat-option value="40">40%</mat-option>
+                                            <mat-option value="50">50%</mat-option>
+                                            <mat-option value="60">60%</mat-option>
+                                            <mat-option value="70">70%</mat-option>
+                                            <mat-option value="80">80%</mat-option>
+                                            <mat-option value="90">90%</mat-option>
+                                            <mat-option value="100">100%</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            }
 
                             <div class="grid grid-cols-2 gap-5">
                                 <div>
                                     <mat-label class="block text-sm font-medium leading-6 text-gray-900">Categoria
                                     </mat-label>
                                     <mat-form-field appearance="outline" class="w-full">
-                                        <mat-select formControlName="category_id" (selectionChange)="getSubcategories($event)">
+                                        <mat-select formControlName="category_id"
+                                                    (selectionChange)="getSubcategories($event)">
                                             @for (category of categories; track category) {
                                                 <mat-option [value]="category.id">{{ category.name }}</mat-option>
                                             }
@@ -78,17 +86,18 @@
                                     <mat-form-field appearance="outline" class="w-full">
                                         <mat-select multiple formControlName="subcategories">
                                             <mat-select-trigger>
-                                                @if(_subcategories.value?.[0]){
-                                                    {{_subcategories.value?.[0].name || ''}}
+                                                @if (this.product.subcategories[0]) {
+                                                    {{ this.product.subcategories[0].name || '' }}
                                                 }
-                                                @if ((_subcategories.value?.length || 0) > 1) {
+                                                @if ((this.product.subcategories.length || 0) > 1) {
                                                     <span class="text-xs text-slate-400">
-                                                      (+{{(_subcategories.value?.length || 0) - 1}} {{_subcategories.value?.length === 2 ? 'subcategoria' : 'subcategorias'}})
+                                                      (+{{ (this.product.subcategories.length || 0) - 1 }} {{ this.product.subcategories.length === 2 ? 'subcategoria' : 'subcategorias' }}
+                                                        )
                                                     </span>
                                                 }
                                             </mat-select-trigger>
                                             @for (subcategory of subcategories; track subcategory) {
-                                                <mat-option [value]="subcategory">{{ subcategory.name }}</mat-option>
+                                                <mat-option [value]="subcategory.id">{{ subcategory.name }}</mat-option>
                                             }
                                         </mat-select>
                                     </mat-form-field>
@@ -101,17 +110,18 @@
                                 <mat-form-field appearance="outline" class="w-1/2">
                                     <mat-select multiple formControlName="providers">
                                         <mat-select-trigger>
-                                            @if(_providers.value?.[0]){
-                                                {{_providers.value?.[0].name || ''}}
+                                            @if (this.product.providers[0]) {
+                                                {{ this.product.providers[0].name || '' }}
                                             }
-                                            @if ((_providers.value?.length || 0) > 1) {
+                                            @if ((this.product.providers.length || 0) > 1) {
                                                 <span class="text-xs text-slate-400">
-                                                      (+{{(_providers.value?.length || 0) - 1}} {{_providers.value?.length === 2 ? 'proveedor' : 'proveedores'}})
+                                                      (+{{ (this.product.providers.length || 0) - 1 }} {{ this.product.providers.length === 2 ? 'proveedor' : 'proveedores' }}
+                                                    )
                                                     </span>
                                             }
                                         </mat-select-trigger>
                                         @for (provider of providers; track provider) {
-                                            <mat-option [value]="provider">{{ provider.name }}</mat-option>
+                                            <mat-option [value]="provider.id">{{ provider.name }}</mat-option>
                                         }
                                     </mat-select>
                                 </mat-form-field>

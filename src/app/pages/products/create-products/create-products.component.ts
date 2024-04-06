@@ -14,11 +14,11 @@ interface Image {
 }
 
 @Component({
-  selector: 'app-create-products',
-  templateUrl: './create-products.component.html',
-  styleUrl: './create-products.component.css'
+    selector: 'app-create-products',
+    templateUrl: './create-products.component.html',
+    styleUrl: './create-products.component.css'
 })
-export class CreateProductsComponent implements OnInit{
+export class CreateProductsComponent implements OnInit {
 
     public productForm: any;
 
@@ -27,6 +27,8 @@ export class CreateProductsComponent implements OnInit{
     public providers: any;
 
     public files: Image[] = [];
+
+    public discountSelect: boolean = false;
 
     constructor(
         private productsService: ProductsService,
@@ -39,11 +41,11 @@ export class CreateProductsComponent implements OnInit{
     ) {
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.getCategories();
     }
 
-    initProductForm(){
+    initProductForm() {
         this.productForm = this.formBuilder.group({
             category_id: ['', Validators.required],
             name: ['', Validators.required],
@@ -55,12 +57,9 @@ export class CreateProductsComponent implements OnInit{
         });
     }
 
-    createProduct(){
+    createProduct() {
         this.spinner.show();
         const product = this.productForm.value;
-        const providers = this._providers.value.map(provider => provider.id);
-        const subcategories = this._subcategories.value.map(subcategory => subcategory.id);
-
 
         const formData: FormData = new FormData();
         formData.append('category_id', product.category_id);
@@ -68,8 +67,14 @@ export class CreateProductsComponent implements OnInit{
         formData.append('discount_percent', product.discount_percent);
         formData.append('name', product.name);
         formData.append('price', product.price);
-        formData.append('providers', providers);
-        formData.append('subcategories', subcategories);
+
+        for (const provider of product.providers) {
+            formData.append('providers', provider.id);
+        }
+
+        for (const subcategory of product.subcategories) {
+            formData.append('subcategories', subcategory.id);
+        }
 
         for (const file of this.files) {
             formData.append('images', file.file);
@@ -94,7 +99,6 @@ export class CreateProductsComponent implements OnInit{
         this.spinner.show();
         this.categoriesService.getCategories().subscribe({
             next: res => {
-                console.log(res.categories);
                 this.categories = res.categories;
                 this.getProviders();
             },
@@ -119,7 +123,7 @@ export class CreateProductsComponent implements OnInit{
         });
     }
 
-    getSubcategories(event){
+    getSubcategories(event) {
         const categoryId = event.value;
         const category = this.categories.find(cat => cat.id === categoryId);
         this.subcategories = category.subcategories;
@@ -131,7 +135,7 @@ export class CreateProductsComponent implements OnInit{
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
-                this.files.push({ url: reader.result as string, file});
+                this.files.push({url: reader.result as string, file});
             };
         });
     }
@@ -143,8 +147,21 @@ export class CreateProductsComponent implements OnInit{
         }
     }
 
-    goBack(){
+    showDiscountSelect(event) {
+        if (event.checked) {
+            this.discountSelect = true;
+        } else {
+            this.discount_percent.setValue('');
+            this.discountSelect = false;
+        }
+    }
+
+    goBack() {
         this.location.back();
+    }
+
+    get discount_percent(){
+        return this.productForm.get('discount_percent');
     }
 
     get _subcategories() {

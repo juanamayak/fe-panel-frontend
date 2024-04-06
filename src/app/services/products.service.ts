@@ -26,4 +26,8 @@ export class ProductsService {
     createProducts(data: any): Observable<any>{
         return this.httpClient.post(`${this.url}/products/create`, data);
     }
+
+    getProductImages(productUuid): Observable<any>{
+        return this.httpClient.get(`${this.url}/products/images/${productUuid}`);
+    }
 }

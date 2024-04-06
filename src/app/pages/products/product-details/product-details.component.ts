@@ -30,6 +30,8 @@ export class ProductDetailsComponent implements OnInit {
 
     public files: Image[] = [];
 
+    public discountSelect: boolean = false;
+
     constructor(
         private productsService: ProductsService,
         private categoriesService: CategoriesService,
@@ -54,7 +56,6 @@ export class ProductDetailsComponent implements OnInit {
                 this.productsService.getProduct(productUuid).subscribe({
                     next: res => {
                         this.product = res.product;
-                        console.log(this.product);
                         this.getCategories();
                     },
                     error: err => {
@@ -67,15 +68,24 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     initProductForm() {
+        const providers = this.product.providers.map(provider => provider.id);
+        const subcategories = this.product.subcategories.map(subcategory => subcategory.id);
+
         this.productForm = this.formBuilder.group({
-            category_id: ['', Validators.required],
-            name: ['', Validators.required],
-            price: ['', Validators.required],
-            discount_percent: [''],
-            subcategories: [[], Validators.required],
-            providers: [[], Validators.required],
-            description: ['', Validators.required]
+            category_id: [this.product.category_id, Validators.required],
+            name: [this.product.name, Validators.required],
+            price: [this.product.price, Validators.required],
+            discount_percent: [this.product.discount_percent],
+            subcategories: [subcategories, Validators.required],
+            providers: [providers, Validators.required],
+            description: [this.product.description, Validators.required]
         });
+
+        this.getSubcategories({value: this.product.category_id});
+
+        if (this.product.discount_percent){
+            this.discountSelect = true;
+        }
     }
 
     createProduct() {
@@ -131,6 +141,19 @@ export class ProductDetailsComponent implements OnInit {
         this.providersService.gerProviders().subscribe({
             next: res => {
                 this.providers = res.providers;
+                this.getImages();
+            },
+            error: err => {
+                this.spinner.hide();
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        });
+    }
+
+    getImages(){
+        this.productsService.getProductImages(this.product.uuid).subscribe({
+            next: res => {
+                console.log(res);
                 this.initProductForm();
                 this.spinner.hide();
             },
@@ -138,7 +161,7 @@ export class ProductDetailsComponent implements OnInit {
                 this.spinner.hide();
                 this.alertsService.errorAlert(err.error.errors);
             }
-        });
+        })
     }
 
     getSubcategories(event) {
@@ -156,6 +179,8 @@ export class ProductDetailsComponent implements OnInit {
                 this.files.push({url: reader.result as string, file});
             };
         });
+
+        console.log(this.files);
     }
 
     deleteImage(image: Image) {
@@ -165,8 +190,21 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
 
+    showDiscountSelect(event) {
+        if (event.checked) {
+            this.discountSelect = true;
+        } else {
+            this.discount_percent.setValue('');
+            this.discountSelect = false;
+        }
+    }
+
     goBack() {
         this.location.back();
+    }
+
+    get discount_percent(){
+        return this.productForm.get('discount_percent');
     }
 
     get _subcategories() {
