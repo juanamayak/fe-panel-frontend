@@ -48,7 +48,7 @@ export class ProductDetailsComponent implements OnInit {
         this.getProduct();
     }
 
-    getProduct(){
+    getProduct() {
         this.activatedRoute.params.subscribe((params) => {
             if (params) {
                 this.spinner.show();
@@ -83,9 +83,11 @@ export class ProductDetailsComponent implements OnInit {
 
         this.getSubcategories({value: this.product.category_id});
 
-        if (this.product.discount_percent){
+        if (this.product.discount_percent) {
             this.discountSelect = true;
         }
+
+        this.productForm.disable();
     }
 
     createProduct() {
@@ -150,10 +152,16 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
 
-    getImages(){
+    getImages() {
         this.productsService.getProductImages(this.product.uuid).subscribe({
             next: res => {
-                console.log(res);
+                this.files = res.images.map(image => {
+                    return {
+                        file: this.base64toFile(image.url, image.file.type, image.file.name),
+                        url: `data:${image.file.type};base64,${image.url}`
+                    }
+                });
+                
                 this.initProductForm();
                 this.spinner.hide();
             },
@@ -162,6 +170,21 @@ export class ProductDetailsComponent implements OnInit {
                 this.alertsService.errorAlert(err.error.errors);
             }
         })
+    }
+
+    base64toFile(base64: string, mimeType: string, fileName: string): File {
+        const blob = this.base64toBlob(base64, mimeType);
+        return new File([blob], fileName, { type: mimeType });
+    }
+
+    base64toBlob(base64: string, mimeType: string): Blob {
+        const byteCharacters = atob(base64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        return new Blob([byteArray], {type: mimeType});
     }
 
     getSubcategories(event) {
@@ -199,11 +222,19 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
 
+    enableProductForm(event){
+        if (event.checked){
+            this.productForm.enable();
+        } else {
+            this.productForm.disable()
+        }
+    }
+
     goBack() {
         this.location.back();
     }
 
-    get discount_percent(){
+    get discount_percent() {
         return this.productForm.get('discount_percent');
     }
 

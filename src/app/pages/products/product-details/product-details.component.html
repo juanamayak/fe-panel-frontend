@@ -3,7 +3,7 @@
         <button mat-button color="primary" (click)="goBack()">
             <i class="fa-solid fa-angle-left fa-xl"></i>
         </button>
-        @if (product){
+        @if (product) {
             <p class="text-3xl font-bold">{{ product.name }}</p>
         }
     </div>
@@ -15,9 +15,16 @@
             <form [formGroup]="productForm">
                 <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-10">
-                        <h2 class="text-base font-semibold leading-7 text-gray-900">Producto</h2>
-                        <p class="text-sm leading-6 text-gray-600">Esta es la información que se vera en el detalle del
-                            producto</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-base font-semibold leading-7 text-gray-900">Producto</h2>
+                                <p class="text-sm leading-6 text-gray-600">Esta es la información que se vera en el
+                                    detalle del
+                                    producto</p>
+                            </div>
+
+                            <mat-slide-toggle (change)="enableProductForm($event)">Editar producto</mat-slide-toggle>
+                        </div>
 
                         <div class="mt-5">
                             <div>
@@ -39,7 +46,8 @@
                                 </div>
                                 <div>
                                     <mat-checkbox (change)="showDiscountSelect($event)"
-                                                  [checked]="this.product.discount_percent ? true : false">
+                                                  [checked]="product.discount_percent ? true : false"
+                                                  [disabled]="productForm.disabled">
                                         ¿Tiene descuento?
                                     </mat-checkbox>
                                 </div>
@@ -166,7 +174,7 @@
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <button mat-flat-button color="primary" (click)="createProduct()">
-                        <i class="fa-solid fa-circle-check"></i>&nbsp;Crear producto
+                        <i class="fa-solid fa-circle-check"></i>&nbsp;Actualizar productos
                     </button>
                 </div>
             </form>
