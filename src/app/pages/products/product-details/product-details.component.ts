@@ -90,6 +90,40 @@ export class ProductDetailsComponent implements OnInit {
         this.productForm.disable();
     }
 
+    updateProduct(){
+        this.spinner.show();
+        const product = this.productForm.value;
+        const providers = this._providers.value.map(provider => provider.id);
+        const subcategories = this._subcategories.value.map(subcategory => subcategory.id);
+
+        const formData: FormData = new FormData();
+        formData.append('category_id', product.category_id);
+        formData.append('description', product.description);
+        formData.append('discount_percent', product.discount_percent);
+        formData.append('name', product.name);
+        formData.append('price', product.price);
+        formData.append('providers', providers);
+        formData.append('subcategories', subcategories);
+
+        for (const file of this.files) {
+            formData.append('images', file.file);
+        }
+
+        this.productsService.updateProducts(this.product.uuid, formData).subscribe({
+            next: res => {
+                this.spinner.hide();
+                this.alertsService.successAlert(res.message);
+                /*setTimeout(() => {
+                    window.location.reload();
+                }, 2500);*/
+            },
+            error: err => {
+                this.spinner.hide()
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        })
+    }
+
     createProduct() {
         this.spinner.show();
         const product = this.productForm.value;
@@ -161,7 +195,7 @@ export class ProductDetailsComponent implements OnInit {
                         url: `data:${image.file.type};base64,${image.url}`
                     }
                 });
-                
+
                 this.initProductForm();
                 this.spinner.hide();
             },

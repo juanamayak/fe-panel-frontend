@@ -153,7 +153,8 @@
 
                         @if (files.length < 6) {
                             <input type="file" class="hidden" multiple (change)="onFileSelected($event)" #images>
-                            <button mat-flat-button color="primary" class="mt-5 mb-1" (click)="images.click()">
+                            <button mat-flat-button color="primary" class="mt-5 mb-1" (click)="images.click()"
+                                    [disabled]="productForm.disabled">
                                 <i class="fa-solid fa-upload"></i>&nbsp;Cargar imagenes
                             </button>
                             <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (Recomendado: 828 x 640 px)</p>
@@ -163,9 +164,11 @@
                             @for (image of files; track image) {
                                 <div class="relative">
                                     <img class="h-auto max-w-full rounded-lg" [src]="image.url">
-                                    <button class="absolute top-2 right-2" (click)="deleteImage(image)">
-                                        <i class="fa-solid fa-circle-xmark fa-lg text-red-600"></i>
-                                    </button>
+                                    @if (productForm.enabled) {
+                                        <button class="absolute top-2 right-2" (click)="deleteImage(image)">
+                                            <i class="fa-solid fa-circle-xmark fa-lg text-red-600"></i>
+                                        </button>
+                                    }
                                 </div>
                             }
                         </div>
@@ -173,8 +176,8 @@
                 </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <button mat-flat-button color="primary" (click)="createProduct()">
-                        <i class="fa-solid fa-circle-check"></i>&nbsp;Actualizar productos
+                    <button mat-flat-button color="primary" (click)="updateProduct()" [disabled]="productForm.disabled">
+                        <i class="fa-solid fa-circle-check"></i>&nbsp;Actualizar producto
                     </button>
                 </div>
             </form>
