@@ -56,6 +56,7 @@ export class ProductDetailsComponent implements OnInit {
                 this.productsService.getProduct(productUuid).subscribe({
                     next: res => {
                         this.product = res.product;
+                        console.log(this.product)
                         this.getCategories();
                     },
                     error: err => {
@@ -70,6 +71,9 @@ export class ProductDetailsComponent implements OnInit {
     initProductForm() {
         const providers = this.product.providers.map(provider => provider.id);
         const subcategories = this.product.subcategories.map(subcategory => subcategory.id);
+
+        console.log(providers);
+        console.log(subcategories);
 
         this.productForm = this.formBuilder.group({
             category_id: [this.product.category_id, Validators.required],
@@ -93,8 +97,7 @@ export class ProductDetailsComponent implements OnInit {
     updateProduct(){
         this.spinner.show();
         const product = this.productForm.value;
-        const providers = this._providers.value.map(provider => provider.id);
-        const subcategories = this._subcategories.value.map(subcategory => subcategory.id);
+        console.log(product);
 
         const formData: FormData = new FormData();
         formData.append('category_id', product.category_id);
@@ -102,8 +105,16 @@ export class ProductDetailsComponent implements OnInit {
         formData.append('discount_percent', product.discount_percent);
         formData.append('name', product.name);
         formData.append('price', product.price);
-        formData.append('providers', providers);
-        formData.append('subcategories', subcategories);
+
+        for (const provider of product.providers) {
+            console.log(provider)
+            formData.append('providers', provider.id);
+        }
+
+        for (const subcategory of product.subcategories) {
+            console.log(subcategory)
+            formData.append('subcategories', subcategory.id);
+        }
 
         for (const file of this.files) {
             formData.append('images', file.file);
@@ -116,41 +127,6 @@ export class ProductDetailsComponent implements OnInit {
                 /*setTimeout(() => {
                     window.location.reload();
                 }, 2500);*/
-            },
-            error: err => {
-                this.spinner.hide()
-                this.alertsService.errorAlert(err.error.errors);
-            }
-        })
-    }
-
-    createProduct() {
-        this.spinner.show();
-        const product = this.productForm.value;
-        const providers = this._providers.value.map(provider => provider.id);
-        const subcategories = this._subcategories.value.map(subcategory => subcategory.id);
-
-
-        const formData: FormData = new FormData();
-        formData.append('category_id', product.category_id);
-        formData.append('description', product.description);
-        formData.append('discount_percent', product.discount_percent);
-        formData.append('name', product.name);
-        formData.append('price', product.price);
-        formData.append('providers', providers);
-        formData.append('subcategories', subcategories);
-
-        for (const file of this.files) {
-            formData.append('images', file.file);
-        }
-
-        this.productsService.createProducts(formData).subscribe({
-            next: res => {
-                this.spinner.hide();
-                this.alertsService.successAlert(res.message);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2500);
             },
             error: err => {
                 this.spinner.hide()
