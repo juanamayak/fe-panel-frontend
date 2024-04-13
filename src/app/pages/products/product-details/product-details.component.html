@@ -97,9 +97,9 @@
                                                 @if (this.product.subcategories[0]) {
                                                     {{ this.product.subcategories[0].name || '' }}
                                                 }
-                                                @if ((this.product.subcategories.length || 0) > 1) {
+                                                @if ((_subcategories.value?.length || 0) > 1) {
                                                     <span class="text-xs text-slate-400">
-                                                      (+{{ (this.product.subcategories.length || 0) - 1 }} {{ this.product.subcategories.length === 2 ? 'subcategoria' : 'subcategorias' }}
+                                                      (+{{ (_subcategories.value?.length || 0) - 1 }} {{ _subcategories.value?.length === 2 ? 'subcategoria' : 'subcategorias' }}
                                                         )
                                                     </span>
                                                 }
@@ -113,7 +113,8 @@
                             </div>
 
                             <div class="mr-5">
-                                <mat-label class="block text-sm font-medium leading-6 text-gray-900">Proveedor
+                                <mat-label class="block text-sm font-medium leading-6 text-gray-900">
+                                    Proveedor
                                 </mat-label>
                                 <mat-form-field appearance="outline" class="w-1/2">
                                     <mat-select multiple formControlName="providers">
@@ -121,15 +122,14 @@
                                             @if (this.product.providers[0]) {
                                                 {{ this.product.providers[0].name || '' }}
                                             }
-                                            @if ((this.product.providers.length || 0) > 1) {
+                                            @if ((_providers.value?.length || 0) > 1) {
                                                 <span class="text-xs text-slate-400">
-                                                      (+{{ (this.product.providers.length || 0) - 1 }} {{ this.product.providers.length === 2 ? 'proveedor' : 'proveedores' }}
-                                                    )
-                                                    </span>
+                                                      (+{{ (_providers.value?.length || 0) - 1 }} {{ _providers.value?.length === 2 ? 'proveedor' : 'proveedores' }})
+                                                </span>
                                             }
                                         </mat-select-trigger>
                                         @for (provider of providers; track provider) {
-                                            <mat-option [value]="provider">{{ provider.name }}</mat-option>
+                                            <mat-option [value]="provider.id">{{ provider.name }}</mat-option>
                                         }
                                     </mat-select>
                                 </mat-form-field>
