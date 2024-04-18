@@ -31,6 +31,8 @@ export class ProductDetailsComponent implements OnInit {
     public files: Image[] = [];
 
     public discountSelect: boolean = false;
+    public subcategorySelected: any;
+    public providerSelected: any;
 
     constructor(
         private productsService: ProductsService,
@@ -57,6 +59,7 @@ export class ProductDetailsComponent implements OnInit {
                     next: res => {
                         this.product = res.product;
                         this.getCategories();
+
                     },
                     error: err => {
                         this.spinner.hide()
@@ -70,8 +73,6 @@ export class ProductDetailsComponent implements OnInit {
     initProductForm() {
         const providers = this.product.providers.map(provider => provider.id);
         const subcategories = this.product.subcategories.map(subcategory => subcategory.id);
-
-        console.log(providers);
 
         this.productForm = this.formBuilder.group({
             category_id: [this.product.category_id, Validators.required],
@@ -148,6 +149,7 @@ export class ProductDetailsComponent implements OnInit {
         this.providersService.gerProviders().subscribe({
             next: res => {
                 this.providers = res.providers;
+                this.onProviderSelected(this.product.providers[0].id);
                 this.getImages();
             },
             error: err => {
@@ -196,6 +198,7 @@ export class ProductDetailsComponent implements OnInit {
         const categoryId = event.value;
         const category = this.categories.find(cat => cat.id === categoryId);
         this.subcategories = category.subcategories;
+        this.onSubcategorySelected(this.product.subcategories[0].id);
     }
 
     onFileSelected(event: any) {
@@ -237,6 +240,15 @@ export class ProductDetailsComponent implements OnInit {
 
     goBack() {
         this.location.back();
+    }
+
+
+    onSubcategorySelected(subcategoryId){
+        this.subcategorySelected = this.subcategories.find(subcategory => subcategory.id === subcategoryId);
+    }
+
+    onProviderSelected(providerId){
+        this.providerSelected = this.providers.find(provider => provider.id === providerId);
     }
 
     get discount_percent() {

@@ -92,10 +92,10 @@
                                     <mat-label class="block text-sm font-medium leading-6 text-gray-900">Subcategorias
                                     </mat-label>
                                     <mat-form-field appearance="outline" class="w-full">
-                                        <mat-select multiple formControlName="subcategories">
-                                            <mat-select-trigger>
-                                                @if (this.product.subcategories[0]) {
-                                                    {{ this.product.subcategories[0].name || '' }}
+                                        <mat-select multiple formControlName="subcategories" (selectionChange)="onSubcategorySelected($event.value[0])">
+                                            <mat-select-trigger >
+                                                @if (subcategorySelected) {
+                                                    {{ subcategorySelected.name || '' }}
                                                 }
                                                 @if ((_subcategories.value?.length || 0) > 1) {
                                                     <span class="text-xs text-slate-400">
@@ -117,10 +117,10 @@
                                     Proveedor
                                 </mat-label>
                                 <mat-form-field appearance="outline" class="w-1/2">
-                                    <mat-select multiple formControlName="providers">
+                                    <mat-select multiple formControlName="providers" (selectionChange)="onProviderSelected($event.value[0])">
                                         <mat-select-trigger>
-                                            @if (this.product.providers[0]) {
-                                                {{ this.product.providers[0].name || '' }}
+                                            @if (providerSelected) {
+                                                {{ providerSelected.name || '' }}
                                             }
                                             @if ((_providers.value?.length || 0) > 1) {
                                                 <span class="text-xs text-slate-400">

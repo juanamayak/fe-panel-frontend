@@ -27,7 +27,7 @@
     <ng-container matColumnDef="sku">
         <th mat-header-cell *matHeaderCellDef> Código de producto</th>
         <td mat-cell *matCellDef="let element">
-            <a [routerLink]="['/productos', element.uuid]">
+            <a [routerLink]="['/productos', element.uuid]" class="font-medium text-blue-600 hover:underline">
                 {{ element.sku }}
             </a>
         </td>
@@ -79,7 +79,7 @@
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
             <mat-menu #menu="matMenu">
-                <a mat-menu-item [routerLink]="['/products', element.uuid]">
+                <a mat-menu-item [routerLink]="['/productos', element.uuid]">
                     <i class="fa-solid fa-eye"></i>&nbsp;Ver producto
                 </a>
             </mat-menu>
