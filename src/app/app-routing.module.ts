@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {BaseComponent} from "./layouts/main-layout/base.component";
+import { BaseComponent } from './layouts/main-layout/base.component';
 
 const routes: Routes = [
-    {path: '', loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)},
+    {
+        path: '',
+        loadChildren: () =>
+            import('./pages/auth/auth.module').then((m) => m.AuthModule),
+    },
     {
         path: '',
         component: BaseComponent,
@@ -11,14 +15,15 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+                loadChildren: () =>
+                    import('./pages/pages.module').then((m) => m.PagesModule),
             },
-        ]
-    }
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

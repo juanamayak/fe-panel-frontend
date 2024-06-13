@@ -2,44 +2,66 @@
 <mat-dialog-content>
     <form [formGroup]="providersForm">
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Nombre del proveedor</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Nombre del proveedor</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="name">
+                <input matInput formControlName="name" />
             </mat-form-field>
         </div>
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Dirección</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Dirección</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="address">
+                <input matInput formControlName="address" />
             </mat-form-field>
         </div>
         <div class="grid grid-cols-3 gap-5">
             <div>
-                <mat-label class="text-sm font-medium text-slate-500">Pais</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Pais</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
-                    <mat-select formControlName="country_id" (selectionChange)="getStates($event)">
-                        @for(country of countries; track country){
-                            <mat-option [value]="country.id">{{ country.name }}</mat-option>
+                    <mat-select
+                        formControlName="country_id"
+                        (selectionChange)="getStates($event)"
+                    >
+                        @for (country of countries; track country) {
+                            <mat-option [value]="country.id">{{
+                                country.name
+                            }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
             </div>
             <div>
-                <mat-label class="text-sm font-medium text-slate-500">Estado</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Estado</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
-                    <mat-select formControlName="state_id" (selectionChange)="getCities($event)">
-                        @for(state of states; track state){
-                            <mat-option [value]="state.id">{{ state.name }}</mat-option>
+                    <mat-select
+                        formControlName="state_id"
+                        (selectionChange)="getCities($event)"
+                    >
+                        @for (state of states; track state) {
+                            <mat-option [value]="state.id">{{
+                                state.name
+                            }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
             </div>
             <div>
-                <mat-label class="text-sm font-medium text-slate-500">Municipio</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Municipio</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
                     <mat-select formControlName="city_id">
-                        @for(city of cities; track city){
-                            <mat-option [value]="city.id">{{ city.name }}</mat-option>
+                        @for (city of cities; track city) {
+                            <mat-option [value]="city.id">{{
+                                city.name
+                            }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
@@ -48,48 +70,66 @@
 
         <div class="grid grid-cols-3 gap-5">
             <div class="col-span-2">
-                <mat-label class="text-sm font-medium text-slate-500">Colonia</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Colonia</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="colony">
+                    <input matInput formControlName="colony" />
                 </mat-form-field>
             </div>
             <div>
-                <mat-label class="text-sm font-medium text-slate-500">Código postal</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Código postal</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="zip">
-                </mat-form-field>
-            </div>
-        </div>
-
-        <hr class="mb-5">
-
-        <h2 class="text-md mb-5 font-medium text-slate-500">Información del responsable/representante</h2>
-
-        <div class="grid grid-cols-2 gap-5">
-            <div>
-                <mat-label class="text-sm font-medium text-slate-500">Nombre</mat-label>
-                <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="responsable_name">
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-label class="text-sm font-medium text-slate-500">Apellidos</mat-label>
-                <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="responsable_lastname">
+                    <input matInput formControlName="zip" />
                 </mat-form-field>
             </div>
         </div>
+
+        <hr class="mb-5" />
+
+        <h2 class="text-md mb-5 font-medium text-slate-500">
+            Información del responsable/representante
+        </h2>
+
         <div class="grid grid-cols-2 gap-5">
             <div>
-                <mat-label class="text-sm font-medium text-slate-500">Correo electrónico</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Nombre</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
-                    <input matInput type="email" formControlName="responsable_email">
+                    <input matInput formControlName="responsable_name" />
                 </mat-form-field>
             </div>
             <div>
-                <mat-label class="text-sm font-medium text-slate-500">Número de contacto</mat-label>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Apellidos</mat-label
+                >
                 <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="responsable_cellphone">
+                    <input matInput formControlName="responsable_lastname" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+            <div>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Correo electrónico</mat-label
+                >
+                <mat-form-field appearance="outline" class="w-full">
+                    <input
+                        matInput
+                        type="email"
+                        formControlName="responsable_email"
+                    />
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-label class="text-sm font-medium text-slate-500"
+                    >Número de contacto</mat-label
+                >
+                <mat-form-field appearance="outline" class="w-full">
+                    <input matInput formControlName="responsable_cellphone" />
                 </mat-form-field>
             </div>
         </div>
@@ -97,6 +137,13 @@
 
     <div class="space-x-3">
         <button mat-stroked-button color="primary">Cancelar</button>
-        <button mat-flat-button color="primary" (click)="createProvider()" cdkFocusInitial>Crear proveedor</button>
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="createProvider()"
+            cdkFocusInitial
+        >
+            Crear proveedor
+        </button>
     </div>
 </mat-dialog-content>

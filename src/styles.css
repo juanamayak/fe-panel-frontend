@@ -7,47 +7,46 @@
 
 /* SweetAlert2 Custom */
 
-.swal2-popup{
-    font-family: 'Inter var' !important;
+.swal2-popup {
+    font-family: "Inter var" !important;
     border-radius: 0.5rem !important;
 }
 
-.swal2-icon{
+.swal2-icon {
     margin: 1.5em auto 0.6em !important;
 }
 
-.swal2-title{
+.swal2-title {
     padding: 0 !important;
     font-size: 1.125rem !important;
 }
 
-.swal2-html-container{
+.swal2-html-container {
     margin: 0 !important;
-    font-size: .875rem !important;
+    font-size: 0.875rem !important;
     color: #eee;
 }
 /* End SweetAlert2 Custom */
 
 /* MatTables Custom */
-.mat-table{
-    font-family: 'Inter var' !important;
+.mat-table {
+    font-family: "Inter var" !important;
 }
 /* End MatTables Custom */
 
 /* MatDialog Custom */
-.mat-dialog-container{
-    font-family: 'Inter var' !important;
+.mat-dialog-container {
+    font-family: "Inter var" !important;
     border-radius: 0.8rem !important;
 }
 /* End MatDialog Custom */
 
 /* Buttons Custom */
-button{
+button {
     @apply rounded-md !important;
 }
 
 /* End Button Custom */
-
 
 /* Custom Input Styling */
 .mat-form-field {
@@ -58,7 +57,6 @@ button{
     @apply py-2.5;
 }
 
-
 .mat-mdc-form-field-infix {
     min-height: 30px;
 }
@@ -66,11 +64,7 @@ button{
 /* End Custom Input Styling*/
 
 /* Mat Table Custom */
-.mat-mdc-header-cell{
-    @apply bg-slate-100 font-bold text-xs uppercase !important;
+.mat-mdc-header-cell {
+    @apply bg-slate-100 text-xs font-bold uppercase !important;
 }
 /* End Mat Table Custom */
-
-
-
-

@@ -7,7 +7,7 @@ export const Permissions = [
             { action: 'create' },
             { action: 'edit' },
             { action: 'delete' },
-        ]
+        ],
     },
     {
         name: 'Categorias',
@@ -16,7 +16,7 @@ export const Permissions = [
             { action: 'list' },
             { action: 'create' },
             { action: 'delete' },
-        ]
+        ],
     },
     {
         name: 'Proveedores',
@@ -26,7 +26,7 @@ export const Permissions = [
             { action: 'create' },
             { action: 'edit' },
             { action: 'delete' },
-        ]
+        ],
     },
     {
         name: 'Cupones',
@@ -37,7 +37,7 @@ export const Permissions = [
             { action: 'edit' },
             { action: 'status' },
             { action: 'delete' },
-        ]
+        ],
     },
     {
         name: 'Mensajes',
@@ -47,23 +47,18 @@ export const Permissions = [
             { action: 'create' },
             { action: 'edit' },
             { action: 'delete' },
-        ]
+        ],
     },
     {
         name: 'Ordenes',
         module: 'orders',
-        permissions: [
-            { action: 'list' },
-        ]
+        permissions: [{ action: 'list' }],
     },
     {
         name: 'Clientes',
         module: 'clients',
-        permissions: [
-            { action: 'list' },
-        ]
+        permissions: [{ action: 'list' }],
     },
-
 
     {
         name: 'Usuarios',
@@ -73,13 +68,11 @@ export const Permissions = [
             { action: 'create' },
             { action: 'edit' },
             { action: 'delete' },
-        ]
+        ],
     },
     {
         name: 'Roles',
         module: 'roles',
-        permissions: [
-            { action: 'list' }
-        ]
+        permissions: [{ action: 'list' }],
     },
-]
+];

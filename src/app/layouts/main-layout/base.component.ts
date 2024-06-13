@@ -1,19 +1,16 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-main-layout',
     templateUrl: './base.component.html',
-    styleUrls: ['./base.component.css']
+    styleUrls: ['./base.component.css'],
 })
 export class BaseComponent implements OnInit, AfterViewInit {
-
     public isMobile: boolean;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         if (window.innerWidth <= 1024) {
@@ -22,5 +19,4 @@ export class BaseComponent implements OnInit, AfterViewInit {
             this.isMobile = false;
         }
     }
-
 }

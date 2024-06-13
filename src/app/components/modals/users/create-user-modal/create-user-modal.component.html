@@ -2,36 +2,53 @@
 <mat-dialog-content>
     <form [formGroup]="usersForm">
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Nombre</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Nombre</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="name">
+                <input matInput formControlName="name" />
             </mat-form-field>
         </div>
 
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Apellidos</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Apellidos</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="lastname">
+                <input matInput formControlName="lastname" />
             </mat-form-field>
         </div>
 
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Correo electrónico</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Correo electrónico</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="email">
+                <input matInput formControlName="email" />
             </mat-form-field>
         </div>
 
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Rol administrativo</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Rol administrativo</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="role_id">
+                <input matInput formControlName="role_id" />
             </mat-form-field>
         </div>
     </form>
 
     <div class="space-x-3">
-        <button mat-stroked-button color="primary" (click)="onNoClick()">Cancelar</button>
-        <button mat-flat-button color="primary" (click)="createUser()" cdkFocusInitial>Crear usuario</button>
+        <button mat-stroked-button color="primary" (click)="onNoClick()">
+            Cancelar
+        </button>
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="createUser()"
+            cdkFocusInitial
+        >
+            Crear usuario
+        </button>
     </div>
 </mat-dialog-content>

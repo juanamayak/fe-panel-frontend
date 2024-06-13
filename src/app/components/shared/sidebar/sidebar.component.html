@@ -1,17 +1,23 @@
-<aside class="pt-16 w-72 h-full ">
-    <div class="h-full overflow-y-auto py-4 px-4 bg-white">
+<aside class="h-full w-72 pt-16">
+    <div class="h-full overflow-y-auto bg-white py-4 px-4">
         <ul class="space-y-1.5 text-sm">
             <div *ngFor="let item of menu">
-                <h3 class="uppercase text-xs font-bold px-2.5 pt-2 mb-2">{{ item.name }}</h3>
+                <h3 class="mb-2 px-2.5 pt-2 text-xs font-bold uppercase">
+                    {{ item.name }}
+                </h3>
                 <div class="space-y-1">
                     <li *ngFor="let value of item.values">
                         <!--
                             Se debe agregar el modulo de permisos *appPermissionModule="{module: value.module, action: value.action}"
                         -->
-                        <a [routerLink]="[value.path]"
-                           class="flex items-center p-2 font-normal text-gray-500 rounded-lg hover:bg-slate-200 duration-200">
-                            <i class="fa-solid {{value.icon}}"></i>
-                            <span class="flex-1 ml-3 whitespace-nowrap">{{ value.title }}</span>
+                        <a
+                            [routerLink]="[value.path]"
+                            class="flex items-center rounded-lg p-2 font-normal text-gray-500 duration-200 hover:bg-slate-200"
+                        >
+                            <i class="fa-solid {{ value.icon }}"></i>
+                            <span class="ml-3 flex-1 whitespace-nowrap">{{
+                                value.title
+                            }}</span>
                         </a>
                     </li>
                 </div>
@@ -19,4 +25,3 @@
         </ul>
     </div>
 </aside>
-

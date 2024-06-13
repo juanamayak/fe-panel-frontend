@@ -3,21 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SubcategoriesComponent } from './subcategories.component';
 
 describe('SubcategoriesComponent', () => {
-  let component: SubcategoriesComponent;
-  let fixture: ComponentFixture<SubcategoriesComponent>;
+    let component: SubcategoriesComponent;
+    let fixture: ComponentFixture<SubcategoriesComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SubcategoriesComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(SubcategoriesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [SubcategoriesComponent],
+        }).compileComponents();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        fixture = TestBed.createComponent(SubcategoriesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
