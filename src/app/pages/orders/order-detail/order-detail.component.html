@@ -10,62 +10,175 @@
 </div>
 
 <div class="mx-8 mt-10 mb-32 space-y-5">
-    <div class="flex gap-10 border-b pb-5">
-        @for (status of statuses; track status) {
-            @if (order.status === status.value) {
-                <p>
-                    Estado de la orden:
-                    <span
-                        class="{{
-                            status.style
-                        }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full"
-                    >{{ status.name }}</span
-                    >
-                </p>
-            }
-        }
-
-        <p>
-            Fecha de entrega:
-            <span
-                class="me-2 rounded-full border px-2.5 py-0.5 text-xs font-medium text-slate-500"
-            >{{ order.delivery_date | date }}</span
-            >
-        </p>
-    </div>
-    <div class="flex flex-col gap-5 xl:flex-row">
-        <div class="flex w-2/3 flex-col gap-5">
+    <div class="flex flex-col gap-10 xl:flex-row">
+        <div class="flex w-3/5 flex-col gap-5">
             <div
-                class="w-full bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6"
-            >
-                <table
-                    class="w-full text-left text-sm text-gray-500 rtl:text-right"
-                >
+                class="flex flex-row justify-between bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
+                @for (status of statuses; track status) {
+                    @if (order.status === status.value) {
+                        <p>
+                            Estado de la orden:
+                            <span
+                                class="{{ status.style }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{ status.name }}</span>
+                        </p>
+                    }
+                }
+
+                <p>
+                    Fecha de entrega:
+                    <span
+                        class="me-2 rounded-full border px-2.5 py-0.5 text-xs font-medium text-slate-500">{{ order.delivery_date | date }}</span>
+                </p>
+
+                <p>
+                    Hora de entrega:
+                    <span
+                        class="me-2 rounded-full border px-2.5 py-0.5 text-xs font-medium text-slate-500">
+                        {{ order.hours.start_hour }} - {{ order.hours.end_hour }}</span>
+                </p>
+            </div>
+            <div class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
+                <h5 class="mb-5 text-xl font-medium">Detalles de la orden</h5>
+
+                <div class="mb-5 grid grid-cols-2 gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Información del cliente</h3>
+
+                        <div>
+                            <p>{{ order.client.name }} {{ order.client.lastname }}</p>
+                            <p>{{ order.client.email }}</p>
+                            <p>{{ order.client.cellphone }}</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Información de envío</h3>
+
+                        <div>
+                            <p>{{ order.addresses.name_receiver }}</p>
+                            <p>{{ order.addresses.phone_receiver }}</p>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <span>{{ order.addresses.address }}, Colonia {{ order.addresses.colony }}.</span>
+                            <span>{{ order.addresses.city.name }}, {{ order.addresses.state.name }}.
+                                CP {{ order.addresses.zip }}</span>
+                            <span>{{ order.addresses.references }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Información de pago</h3>
+
+                        <div class="flex items-center gap-5">
+                            <img src="assets/{{payment.payment_method}}.png" class="w-12 h-12">
+                            <div>
+                                <p>Pagado el: {{ payment.payment_date | date }}</p>
+                                <p>{{ payment.payer_name }}</p>
+                                <p>{{ payment.payer_email }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Estado del pago</h3>
+
+                        <div>
+                            <p class="text-emerald-500">{{ order.total | currency }} {{ payment.currency }}</p>
+                            <p>{{ payment.transaction }}</p>
+                            <p>{{ payment.payment_status }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
+                <h5 class="mb-5 text-xl font-medium">Ubicación de envio</h5>
+
+                <div id="map" class="w-full h-96"></div>
+
+                <div class="mb-5 grid grid-cols-2 gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Información del cliente</h3>
+
+                        <div>
+                            <p>{{ order.client.name }} {{ order.client.lastname }}</p>
+                            <p>{{ order.client.email }}</p>
+                            <p>{{ order.client.cellphone }}</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Información de envío</h3>
+
+                        <div>
+                            <p>{{ order.addresses.name_receiver }}</p>
+                            <p>{{ order.addresses.phone_receiver }}</p>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <span>{{ order.addresses.address }}, Colonia {{ order.addresses.colony }}.</span>
+                            <span>{{ order.addresses.city.name }}, {{ order.addresses.state.name }}.
+                                CP {{ order.addresses.zip }}</span>
+                            <span>{{ order.addresses.references }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Información de pago</h3>
+
+                        <div class="flex items-center gap-5">
+                            <img src="assets/{{payment.payment_method}}.png" class="w-12 h-12">
+                            <div>
+                                <p>Pagado el: {{ payment.payment_date | date }}</p>
+                                <p>{{ payment.payer_name }}</p>
+                                <p>{{ payment.payer_email }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Estado del pago</h3>
+
+                        <div>
+                            <p class="text-emerald-500">{{ order.total | currency }} {{ payment.currency }}</p>
+                            <p>{{ payment.transaction }}</p>
+                            <p>{{ payment.payment_status }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="flex w-2/5 flex-col gap-5">
+            <div class="w-full bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
+                <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
                     <thead class="bg-gray-50 text-xs uppercase text-gray-700">
                     <tr>
-                        <th scope="col" class="px-6 py-3">Producto</th>
-                        <th scope="col" class="px-6 py-3">Identificador</th>
-                        <th scope="col" class="px-6 py-3">Precio</th>
+                        <th scope="col" class="px-3 py-3">Producto</th>
+                        <th scope="col" class="px-3 py-3">Identificador</th>
+                        <th scope="col" class="px-3 py-3">Precio</th>
                     </tr>
                     </thead>
                     <tbody>
                         @for (product of order.products; track product) {
                             <tr class="border-b bg-white">
-                                <th
-                                    scope="row"
-                                    class="flex items-center px-6 py-4 text-gray-900"
-                                >
+                                <th scope="row" class="flex items-center px-3 py-4 text-gray-900">
                                     <!--<img class="w-10 h-10" src="assets/default-product.jpg" alt="Jese image">-->
-                                    <div class="ps-3">
+                                    <div>
                                         <div class="text-base font-semibold">
                                             {{ product.name }}
                                         </div>
                                     </div>
                                 </th>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4">
                                     {{ product.sku }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4">
                                     {{ product.price | currency }}
                                 </td>
                             </tr>
@@ -74,63 +187,33 @@
                     <tfoot>
                     <!-- Shipping row -->
                     <tr class="bg-white">
-                        <td colspan="2" class="px-6 text-right">
+                        <td colspan="2" class="px-3">
                             Subtotal
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="px-3 py-2">
                             {{ order.subtotal | currency }}
                         </td>
                     </tr>
                     <!-- Discount row -->
                     <tr class="border-b bg-white">
-                        <td colspan="2" class="px-6 text-right">Envio</td>
-                        <td class="px-6 py-2">
+                        <td colspan="2" class="px-3">Envio</td>
+                        <td class="px-3 py-2">
                             {{ order.delivery_price | currency }}
                         </td>
                     </tr>
                     <!-- Total row -->
                     <tr class="bg-white">
-                        <td colspan="2" class="px-6 py-4 text-right">
+                        <td colspan="2" class="px-3 py-4">
                             Total
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="px-3 py-2">
                             {{ order.total | currency }}
                         </td>
                     </tr>
                     </tfoot>
                 </table>
             </div>
-
-            <div
-                class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6"
-            >
-                <h5 class="mb-3 text-xl font-medium">Información de entrega</h5>
-                <ul role="list" class="my-5 space-y-5">
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="ms-3 text-base text-gray-500"
-                        >{{ order.client.name }}
-                            {{ order.client.lastname }}</span
-                        >
-                    </li>
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span class="ms-3 text-base text-gray-500">{{
-                                order.client.email
-                            }}</span>
-                    </li>
-
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-phone"></i>
-                        <span class="ms-3 text-base text-gray-500">{{
-                                order.client.cellphone
-                            }}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="flex w-1/3 flex-col gap-5">
-            <div
+            <!--<div
                 class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6"
             >
                 <h5 class="mb-3 text-xl font-medium">
@@ -185,7 +268,7 @@
                             }}</span>
                     </li>
                 </ul>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>
