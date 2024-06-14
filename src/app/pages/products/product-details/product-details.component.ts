@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {NgxSpinnerService} from "ngx-spinner";
-import {Location} from "@angular/common";
-import {ProductsService} from "../../../services/products.service";
-import {CategoriesService} from "../../../services/categories.service";
-import {ProvidersService} from "../../../services/providers.service";
-import {FormBuilder, Validators} from "@angular/forms";
-import {AlertsService} from "../../../services/alerts.service";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Location } from '@angular/common';
+import { ProductsService } from '../../../services/products.service';
+import { CategoriesService } from '../../../services/categories.service';
+import { ProvidersService } from '../../../services/providers.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AlertsService } from '../../../services/alerts.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface Image {
     url: string;
@@ -16,10 +16,9 @@ interface Image {
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
-    styleUrls: ['./product-details.component.css']
+    styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
-
     public productForm: any;
 
     public product: any;
@@ -42,9 +41,8 @@ export class ProductDetailsComponent implements OnInit {
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
         private location: Location,
-        private activatedRoute: ActivatedRoute
-    ) {
-    }
+        private activatedRoute: ActivatedRoute,
+    ) {}
 
     ngOnInit() {
         this.getProduct();
@@ -56,23 +54,24 @@ export class ProductDetailsComponent implements OnInit {
                 this.spinner.show();
                 const productUuid = params['uuid'];
                 this.productsService.getProduct(productUuid).subscribe({
-                    next: res => {
+                    next: (res) => {
                         this.product = res.product;
                         this.getCategories();
-
                     },
-                    error: err => {
-                        this.spinner.hide()
+                    error: (err) => {
+                        this.spinner.hide();
                         this.alertsService.errorAlert(err.error.errors);
-                    }
+                    },
                 });
             }
         });
     }
 
     initProductForm() {
-        const providers = this.product.providers.map(provider => provider.id);
-        const subcategories = this.product.subcategories.map(subcategory => subcategory.id);
+        const providers = this.product.providers.map((provider) => provider.id);
+        const subcategories = this.product.subcategories.map(
+            (subcategory) => subcategory.id,
+        );
 
         this.productForm = this.formBuilder.group({
             category_id: [this.product.category_id, Validators.required],
@@ -81,10 +80,10 @@ export class ProductDetailsComponent implements OnInit {
             discount_percent: [this.product.discount_percent],
             subcategories: [subcategories, Validators.required],
             providers: [providers, Validators.required],
-            description: [this.product.description, Validators.required]
+            description: [this.product.description, Validators.required],
         });
 
-        this.getSubcategories({value: this.product.category_id});
+        this.getSubcategories({ value: this.product.category_id });
 
         if (this.product.discount_percent) {
             this.discountSelect = true;
@@ -93,7 +92,7 @@ export class ProductDetailsComponent implements OnInit {
         this.productForm.disable();
     }
 
-    updateProduct(){
+    updateProduct() {
         this.spinner.show();
         const product = this.productForm.value;
 
@@ -116,67 +115,73 @@ export class ProductDetailsComponent implements OnInit {
             formData.append('images', file.file);
         }
 
-        this.productsService.updateProducts(this.product.uuid, formData).subscribe({
-            next: res => {
-                this.spinner.hide();
-                this.alertsService.successAlert(res.message);
-                /*setTimeout(() => {
+        this.productsService
+            .updateProducts(this.product.uuid, formData)
+            .subscribe({
+                next: (res) => {
+                    this.spinner.hide();
+                    this.alertsService.successAlert(res.message);
+                    /*setTimeout(() => {
                     window.location.reload();
                 }, 2500);*/
-            },
-            error: err => {
-                this.spinner.hide()
-                this.alertsService.errorAlert(err.error.errors);
-            }
-        })
+                },
+                error: (err) => {
+                    this.spinner.hide();
+                    this.alertsService.errorAlert(err.error.errors);
+                },
+            });
     }
 
     getCategories() {
         this.spinner.show();
         this.categoriesService.getCategories().subscribe({
-            next: res => {
+            next: (res) => {
                 this.categories = res.categories;
                 this.getProviders();
             },
-            error: err => {
-                this.spinner.hide()
+            error: (err) => {
+                this.spinner.hide();
                 this.alertsService.errorAlert(err.error.errors);
-            }
+            },
         });
     }
 
     getProviders() {
         this.providersService.gerProviders().subscribe({
-            next: res => {
+            next: (res) => {
                 this.providers = res.providers;
                 this.onProviderSelected(this.product.providers[0].id);
                 this.getImages();
             },
-            error: err => {
+            error: (err) => {
                 this.spinner.hide();
                 this.alertsService.errorAlert(err.error.errors);
-            }
+            },
         });
     }
 
     getImages() {
         this.productsService.getProductImages(this.product.uuid).subscribe({
-            next: res => {
-                this.files = res.images.map(image => {
+            next: (res) => {
+                this.files = res.images.map((image) => {
                     return {
-                        file: this.base64toFile(image.url, image.file.type, image.file.name),
-                        url: `data:${image.file.type};base64,${image.url}`
-                    }
+                        file: this.base64toFile(
+                            image.url,
+                            image.file.type,
+                            image.file.name,
+                        ),
+                        url: `data:${image.file.type};base64,${image.url}`,
+                    };
                 });
 
                 this.initProductForm();
                 this.spinner.hide();
             },
-            error: err => {
+            error: (err) => {
                 this.spinner.hide();
                 this.alertsService.errorAlert(err.error.errors);
-            }
-        })
+            },
+        });
     }
 
     base64toFile(base64: string, mimeType: string, fileName: string): File {
@@ -191,23 +196,23 @@ export class ProductDetailsComponent implements OnInit {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
         const byteArray = new Uint8Array(byteNumbers);
-        return new Blob([byteArray], {type: mimeType});
+        return new Blob([byteArray], { type: mimeType });
     }
 
     getSubcategories(event) {
         const categoryId = event.value;
-        const category = this.categories.find(cat => cat.id === categoryId);
+        const category = this.categories.find((cat) => cat.id === categoryId);
         this.subcategories = category.subcategories;
         this.onSubcategorySelected(this.product.subcategories[0].id);
     }
 
     onFileSelected(event: any) {
         const files: File[] = Array.from(event.target.files);
-        files.forEach(file => {
+        files.forEach((file) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
-                this.files.push({url: reader.result as string, file});
+                this.files.push({ url: reader.result as string, file });
             };
         });
 
@@ -230,11 +235,11 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
 
-    enableProductForm(event){
-        if (event.checked){
+    enableProductForm(event) {
+        if (event.checked) {
             this.productForm.enable();
         } else {
-            this.productForm.disable()
+            this.productForm.disable();
         }
     }
 
@@ -242,13 +247,16 @@ export class ProductDetailsComponent implements OnInit {
         this.location.back();
     }
 
-
-    onSubcategorySelected(subcategoryId){
-        this.subcategorySelected = this.subcategories.find(subcategory => subcategory.id === subcategoryId);
+    onSubcategorySelected(subcategoryId) {
+        this.subcategorySelected = this.subcategories.find(
+            (subcategory) => subcategory.id === subcategoryId,
+        );
     }
 
-    onProviderSelected(providerId){
-        this.providerSelected = this.providers.find(provider => provider.id === providerId);
+    onProviderSelected(providerId) {
+        this.providerSelected = this.providers.find(
+            (provider) => provider.id === providerId,
+        );
     }
 
     get discount_percent() {
@@ -256,11 +264,10 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     get _subcategories() {
-        return this.productForm.get("subcategories");
+        return this.productForm.get('subcategories');
     }
 
     get _providers() {
-        return this.productForm.get("providers");
+        return this.productForm.get('providers');
     }
-
 }

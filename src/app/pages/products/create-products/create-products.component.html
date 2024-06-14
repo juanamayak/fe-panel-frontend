@@ -1,4 +1,4 @@
-<div class="relative flex flex-col py-5 px-8 space-y-5 bg-white">
+<div class="relative flex flex-col space-y-5 bg-white py-5 px-8">
     <div class="flex space-x-5">
         <button mat-button color="primary" (click)="goBack()">
             <i class="fa-solid fa-angle-left fa-xl"></i>
@@ -13,50 +13,99 @@
             <form [formGroup]="productForm">
                 <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-10">
-                        <h2 class="text-base font-semibold leading-7 text-gray-900">Producto</h2>
-                        <p class="text-sm leading-6 text-gray-600">Esta es la información que se vera en el detalle del
-                            producto</p>
+                        <h2
+                            class="text-base font-semibold leading-7 text-gray-900"
+                        >
+                            Producto
+                        </h2>
+                        <p class="text-sm leading-6 text-gray-600">
+                            Esta es la información que se vera en el detalle del
+                            producto
+                        </p>
 
                         <div class="mt-5">
                             <div>
-                                <mat-label class="block text-sm font-medium leading-6 text-gray-900">Nombre del producto
+                                <mat-label
+                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                    >Nombre del producto
                                 </mat-label>
-                                <mat-form-field appearance="outline" class="w-3/4">
-                                    <input matInput formControlName="name">
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="w-3/4"
+                                >
+                                    <input matInput formControlName="name" />
                                 </mat-form-field>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-5 items-center">
+                            <div class="grid grid-cols-2 items-center gap-5">
                                 <div>
-                                    <mat-label class="block text-sm font-medium leading-6 text-gray-900">Precio
+                                    <mat-label
+                                        class="block text-sm font-medium leading-6 text-gray-900"
+                                        >Precio
                                     </mat-label>
-                                    <mat-form-field appearance="outline" class="w-full">
-                                        <input matInput currencyMask formControlName="price">
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-full"
+                                    >
+                                        <input
+                                            matInput
+                                            currencyMask
+                                            formControlName="price"
+                                        />
                                         <span matTextPrefix>$&nbsp;</span>
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <mat-checkbox (change)="showDiscountSelect($event)">¿Tiene descuento?</mat-checkbox>
+                                    <mat-checkbox
+                                        (change)="showDiscountSelect($event)"
+                                        >¿Tiene descuento?</mat-checkbox
+                                    >
                                 </div>
                             </div>
 
                             @if (discountSelect) {
                                 <div class="mr-5">
-                                    <mat-label class="block text-sm font-medium leading-6 text-gray-900">Porcentaje de
-                                        descuento
+                                    <mat-label
+                                        class="block text-sm font-medium leading-6 text-gray-900"
+                                        >Porcentaje de descuento
                                     </mat-label>
-                                    <mat-form-field appearance="outline" class="w-1/2">
-                                        <mat-select formControlName="discount_percent">
-                                            <mat-option value="10">10%</mat-option>
-                                            <mat-option value="20">20%</mat-option>
-                                            <mat-option value="30">30%</mat-option>
-                                            <mat-option value="40">40%</mat-option>
-                                            <mat-option value="50">50%</mat-option>
-                                            <mat-option value="60">60%</mat-option>
-                                            <mat-option value="70">70%</mat-option>
-                                            <mat-option value="80">80%</mat-option>
-                                            <mat-option value="90">90%</mat-option>
-                                            <mat-option value="100">100%</mat-option>
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-1/2"
+                                    >
+                                        <mat-select
+                                            formControlName="discount_percent"
+                                        >
+                                            <mat-option value="10"
+                                                >10%</mat-option
+                                            >
+                                            <mat-option value="20"
+                                                >20%</mat-option
+                                            >
+                                            <mat-option value="30"
+                                                >30%</mat-option
+                                            >
+                                            <mat-option value="40"
+                                                >40%</mat-option
+                                            >
+                                            <mat-option value="50"
+                                                >50%</mat-option
+                                            >
+                                            <mat-option value="60"
+                                                >60%</mat-option
+                                            >
+                                            <mat-option value="70"
+                                                >70%</mat-option
+                                            >
+                                            <mat-option value="80"
+                                                >80%</mat-option
+                                            >
+                                            <mat-option value="90"
+                                                >90%</mat-option
+                                            >
+                                            <mat-option value="100"
+                                                >100%</mat-option
+                                            >
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -64,35 +113,90 @@
 
                             <div class="grid grid-cols-2 gap-5">
                                 <div>
-                                    <mat-label class="block text-sm font-medium leading-6 text-gray-900">Categoria
+                                    <mat-label
+                                        class="block text-sm font-medium leading-6 text-gray-900"
+                                        >Categoria
                                     </mat-label>
-                                    <mat-form-field appearance="outline" class="w-full">
-                                        <mat-select formControlName="category_id"
-                                                    (selectionChange)="getSubcategories($event)">
-                                            @for (category of categories; track category) {
-                                                <mat-option [value]="category.id">{{ category.name }}</mat-option>
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-full"
+                                    >
+                                        <mat-select
+                                            formControlName="category_id"
+                                            (selectionChange)="
+                                                getSubcategories($event)
+                                            "
+                                        >
+                                            @for (
+                                                category of categories;
+                                                track category
+                                            ) {
+                                                <mat-option
+                                                    [value]="category.id"
+                                                    >{{
+                                                        category.name
+                                                    }}</mat-option
+                                                >
                                             }
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
                                 <div>
-                                    <mat-label class="block text-sm font-medium leading-6 text-gray-900">Subcategorias
+                                    <mat-label
+                                        class="block text-sm font-medium leading-6 text-gray-900"
+                                        >Subcategorias
                                     </mat-label>
-                                    <mat-form-field appearance="outline" class="w-full">
-                                        <mat-select multiple formControlName="subcategories">
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-full"
+                                    >
+                                        <mat-select
+                                            multiple
+                                            formControlName="subcategories"
+                                        >
                                             <mat-select-trigger>
-                                                @if (_subcategories.value?.[0]) {
-                                                    {{ _subcategories.value?.[0].name || '' }}
+                                                @if (
+                                                    _subcategories.value?.[0]
+                                                ) {
+                                                    {{
+                                                        _subcategories
+                                                            .value?.[0].name ||
+                                                            ""
+                                                    }}
                                                 }
-                                                @if ((_subcategories.value?.length || 0) > 1) {
-                                                    <span class="text-xs text-slate-400">
-                                                      (+{{ (_subcategories.value?.length || 0) - 1 }} {{ _subcategories.value?.length === 2 ? 'subcategoria' : 'subcategorias' }}
+                                                @if (
+                                                    (_subcategories.value
+                                                        ?.length || 0) > 1
+                                                ) {
+                                                    <span
+                                                        class="text-xs text-slate-400"
+                                                    >
+                                                        (+{{
+                                                            (_subcategories
+                                                                .value
+                                                                ?.length || 0) -
+                                                                1
+                                                        }}
+                                                        {{
+                                                            _subcategories.value
+                                                                ?.length === 2
+                                                                ? "subcategoria"
+                                                                : "subcategorias"
+                                                        }}
                                                         )
                                                     </span>
                                                 }
                                             </mat-select-trigger>
-                                            @for (subcategory of subcategories; track subcategory) {
-                                                <mat-option [value]="subcategory">{{ subcategory.name }}</mat-option>
+                                            @for (
+                                                subcategory of subcategories;
+                                                track subcategory
+                                            ) {
+                                                <mat-option
+                                                    [value]="subcategory"
+                                                    >{{
+                                                        subcategory.name
+                                                    }}</mat-option
+                                                >
                                             }
                                         </mat-select>
                                     </mat-form-field>
@@ -100,58 +204,123 @@
                             </div>
 
                             <div class="mr-5">
-                                <mat-label class="block text-sm font-medium leading-6 text-gray-900">Proveedor
+                                <mat-label
+                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                    >Proveedor
                                 </mat-label>
-                                <mat-form-field appearance="outline" class="w-1/2">
-                                    <mat-select multiple formControlName="providers">
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="w-1/2"
+                                >
+                                    <mat-select
+                                        multiple
+                                        formControlName="providers"
+                                    >
                                         <mat-select-trigger>
                                             @if (_providers.value?.[0]) {
-                                                {{ _providers.value?.[0].name || '' }}
+                                                {{
+                                                    _providers.value?.[0]
+                                                        .name || ""
+                                                }}
                                             }
-                                            @if ((_providers.value?.length || 0) > 1) {
-                                                <span class="text-xs text-slate-400">
-                                                      (+{{ (_providers.value?.length || 0) - 1 }} {{ _providers.value?.length === 2 ? 'proveedor' : 'proveedores' }}
+                                            @if (
+                                                (_providers.value?.length ||
+                                                    0) > 1
+                                            ) {
+                                                <span
+                                                    class="text-xs text-slate-400"
+                                                >
+                                                    (+{{
+                                                        (_providers.value
+                                                            ?.length || 0) - 1
+                                                    }}
+                                                    {{
+                                                        _providers.value
+                                                            ?.length === 2
+                                                            ? "proveedor"
+                                                            : "proveedores"
+                                                    }}
                                                     )
-                                                    </span>
+                                                </span>
                                             }
                                         </mat-select-trigger>
-                                        @for (provider of providers; track provider) {
-                                            <mat-option [value]="provider">{{ provider.name }}</mat-option>
+                                        @for (
+                                            provider of providers;
+                                            track provider
+                                        ) {
+                                            <mat-option [value]="provider">{{
+                                                provider.name
+                                            }}</mat-option>
                                         }
                                     </mat-select>
                                 </mat-form-field>
                             </div>
 
                             <div>
-                                <mat-label class="block text-sm font-medium leading-6 text-gray-900">Descripción
+                                <mat-label
+                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                    >Descripción
                                 </mat-label>
-                                <mat-form-field appearance="outline" class="w-full">
-                                    <textarea matInput rows="4" formControlName="description"></textarea>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="w-full"
+                                >
+                                    <textarea
+                                        matInput
+                                        rows="4"
+                                        formControlName="description"
+                                    ></textarea>
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
 
                     <div class="border-b border-gray-900/10 pb-10">
-                        <h2 class="text-base font-semibold leading-7 text-gray-900">Imagenes del producto</h2>
-                        <p class="text-sm leading-6 text-gray-600">Selecciona hasta 6 imagenes para mostrar el
-                            producto</p>
-
+                        <h2
+                            class="text-base font-semibold leading-7 text-gray-900"
+                        >
+                            Imagenes del producto
+                        </h2>
+                        <p class="text-sm leading-6 text-gray-600">
+                            Selecciona hasta 6 imagenes para mostrar el producto
+                        </p>
 
                         @if (files.length < 6) {
-                            <input type="file" class="hidden" multiple (change)="onFileSelected($event)" #images>
-                            <button mat-flat-button color="primary" class="mt-5 mb-1" (click)="images.click()">
-                                <i class="fa-solid fa-upload"></i>&nbsp;Cargar imagenes
+                            <input
+                                type="file"
+                                class="hidden"
+                                multiple
+                                (change)="onFileSelected($event)"
+                                #images
+                            />
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                class="mt-5 mb-1"
+                                (click)="images.click()"
+                            >
+                                <i class="fa-solid fa-upload"></i>&nbsp;Cargar
+                                imagenes
                             </button>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (Recomendado: 828 x 640 px)</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                PNG, JPG (Recomendado: 828 x 640 px)
+                            </p>
                         }
 
-                        <div class="mt-5 grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="mt-5 grid grid-cols-2 gap-4 md:grid-cols-3">
                             @for (image of files; track image) {
                                 <div class="relative">
-                                    <img class="h-auto max-w-full rounded-lg" [src]="image.url">
-                                    <button class="absolute top-2 right-2" (click)="deleteImage(image)">
-                                        <i class="fa-solid fa-circle-xmark fa-lg text-red-600"></i>
+                                    <img
+                                        class="h-auto max-w-full rounded-lg"
+                                        [src]="image.url"
+                                    />
+                                    <button
+                                        class="absolute top-2 right-2"
+                                        (click)="deleteImage(image)"
+                                    >
+                                        <i
+                                            class="fa-solid fa-circle-xmark fa-lg text-red-600"
+                                        ></i>
                                     </button>
                                 </div>
                             }
@@ -160,13 +329,16 @@
                 </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <button mat-flat-button color="primary" (click)="createProduct()">
-                        <i class="fa-solid fa-circle-check"></i>&nbsp;Crear producto
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="createProduct()"
+                    >
+                        <i class="fa-solid fa-circle-check"></i>&nbsp;Crear
+                        producto
                     </button>
                 </div>
             </form>
         }
     </div>
 </div>
-
-

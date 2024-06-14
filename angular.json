@@ -27,7 +27,8 @@
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "src/custom.scss",
                             "./node_modules/@fortawesome/fontawesome-free/css/all.css",
-                            "src/styles.css"
+                            "src/styles.css",
+                            "mapbox-gl/dist/mapbox-gl.css"
                         ],
                         "scripts": [
                             "./node_modules/@fortawesome/fontawesome-free/js/all.js"
@@ -70,10 +71,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                          "buildTarget": "gs-frontend-angular-template:build:production"
+                            "buildTarget": "gs-frontend-angular-template:build:production"
                         },
                         "development": {
-                          "buildTarget": "gs-frontend-angular-template:build:development"
+                            "buildTarget": "gs-frontend-angular-template:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -81,7 +82,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                      "buildTarget": "gs-frontend-angular-template:build"
+                        "buildTarget": "gs-frontend-angular-template:build"
                     }
                 },
                 "test": {

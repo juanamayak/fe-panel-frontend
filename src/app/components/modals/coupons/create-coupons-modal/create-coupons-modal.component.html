@@ -2,22 +2,33 @@
 <mat-dialog-content>
     <form [formGroup]="couponsForm">
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Cupón</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Cupón</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput #coupon formControlName="coupon" [maxLength]="10">
-                <mat-hint align="end">{{coupon.value.length}} / 10</mat-hint>
+                <input
+                    matInput
+                    #coupon
+                    formControlName="coupon"
+                    [maxLength]="10"
+                />
+                <mat-hint align="end">{{ coupon.value.length }} / 10</mat-hint>
             </mat-form-field>
         </div>
 
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Cantidad</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Cantidad</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="quantity">
+                <input matInput formControlName="quantity" />
             </mat-form-field>
         </div>
 
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Porcentaje de descuento</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Porcentaje de descuento</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
                 <mat-select formControlName="discount_percent">
                     <mat-option value="10">10%</mat-option>
@@ -35,14 +46,31 @@
         </div>
 
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Fecha de expiración</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Fecha de expiración</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput [matDatepicker]="datepicker" [min]="minDate" formControlName="expiration" (click)="datepicker.open()">
-                <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <input
+                    matInput
+                    [matDatepicker]="datepicker"
+                    [min]="minDate"
+                    formControlName="expiration"
+                    (click)="datepicker.open()"
+                />
+                <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="datepicker"
+                ></mat-datepicker-toggle>
                 <mat-datepicker #datepicker>
                     <mat-datepicker-actions>
                         <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            matDatepickerApply
+                        >
+                            Apply
+                        </button>
                     </mat-datepicker-actions>
                 </mat-datepicker>
             </mat-form-field>
@@ -50,7 +78,16 @@
     </form>
 
     <div class="space-x-3">
-        <button mat-stroked-button color="primary" (click)="onNoClick()">Cancelar</button>
-        <button mat-flat-button color="primary" (click)="createCoupon()" cdkFocusInitial>Crear cupón</button>
+        <button mat-stroked-button color="primary" (click)="onNoClick()">
+            Cancelar
+        </button>
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="createCoupon()"
+            cdkFocusInitial
+        >
+            Crear cupón
+        </button>
     </div>
 </mat-dialog-content>

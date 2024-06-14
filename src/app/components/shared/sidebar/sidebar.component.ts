@@ -1,38 +1,34 @@
-import {Component, OnInit} from '@angular/core';
-import {NgxSpinnerService} from "ngx-spinner";
+import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.css']
+    styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-
     public menuItems: any;
     public menu: any;
 
-    constructor(
-        private spinner: NgxSpinnerService
-    ) {
-    }
+    constructor(private spinner: NgxSpinnerService) {}
 
     ngOnInit(): void {
         this.setMenuItem();
     }
 
-    setMenuItem(){
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+    setMenuItem() {
+        this.menuItems = ROUTES.filter((menuItem) => menuItem);
 
         const groups = new Set(this.menuItems.map((item: any) => item.group));
 
         this.menu = [];
-        groups.forEach(g =>
+        groups.forEach((g) =>
             this.menu.push({
-                    name: g,
-                    values: this.menuItems.filter((i: any) => i.group === g),
-                    module: ''
-                }
-            ));
+                name: g,
+                values: this.menuItems.filter((i: any) => i.group === g),
+                module: '',
+            }),
+        );
 
         for (let i = 0; i < this.menu.length; i++) {
             for (let j = 0; j < this.menu[i].values.length; j++) {
@@ -40,7 +36,6 @@ export class SidebarComponent implements OnInit {
             }
         }
     }
-
 }
 
 // Rutas que se mostrarán en el sidebar menu
@@ -53,7 +48,7 @@ export const ROUTES = [
         title: 'Inicio',
         icon: 'fa-house',
         class: '',
-        role: [null]
+        role: [null],
     },
     {
         path: '/pedidos',
@@ -63,7 +58,7 @@ export const ROUTES = [
         title: 'Pedidos',
         icon: 'fa-truck-ramp-box',
         class: '',
-        role: [null]
+        role: [null],
     },
     {
         path: '/clientes',
@@ -73,7 +68,7 @@ export const ROUTES = [
         title: 'Clientes',
         icon: 'fa-users',
         class: '',
-        role: [null]
+        role: [null],
     },
     {
         path: '/productos',
@@ -83,7 +78,7 @@ export const ROUTES = [
         title: 'Productos',
         icon: 'fa-boxes-stacked',
         class: '',
-        role: [null]
+        role: [null],
     },
     {
         path: '/categorias',
@@ -93,7 +88,7 @@ export const ROUTES = [
         title: 'Categorias',
         icon: 'fa-list',
         class: '',
-        role: [null]
+        role: [null],
     },
     {
         path: '/florerias',
@@ -103,7 +98,7 @@ export const ROUTES = [
         title: 'Florerias',
         icon: 'fa-store',
         class: '',
-        role: [null]
+        role: [null],
     },
     {
         path: '/cupones',
@@ -113,8 +108,8 @@ export const ROUTES = [
         title: 'Cupones',
         icon: 'fa-ticket',
         class: '',
-        role: [null]
-    },/*
+        role: [null],
+    } /*
     {
         path: '/horarios',
         group: 'CONFIGURACIÓN',
@@ -124,7 +119,7 @@ export const ROUTES = [
         icon: 'fa-clock',
         class: '',
         role: [null]
-    },*/
+    },*/,
     {
         path: '/dedicatorias',
         group: 'CONFIGURACIÓN',
@@ -133,8 +128,8 @@ export const ROUTES = [
         title: 'Dedicatorias',
         icon: 'fa-comment',
         class: '',
-        role: [null]
-    },/*
+        role: [null],
+    } /*
     {
         path: '/idiomas',
         group: 'CONFIGURACIÓN',
@@ -144,7 +139,7 @@ export const ROUTES = [
         icon: 'fa-globe',
         class: '',
         role: [null]
-    },*/
+    },*/,
     {
         path: '/usuarios',
         group: 'CONFIGURACIÓN',
@@ -153,7 +148,7 @@ export const ROUTES = [
         title: 'Usuarios',
         icon: 'fa-user-gear',
         class: '',
-        role: [null]
+        role: [null],
     },
     /*{
         path: '/roles',

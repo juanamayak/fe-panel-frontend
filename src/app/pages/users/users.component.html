@@ -1,5 +1,5 @@
 <!-- Header -->
-<div class="relative flex flex-col py-5 px-8 space-y-5 bg-white">
+<div class="relative flex flex-col space-y-5 bg-white py-5 px-8">
     <!-- Title -->
     <div class="text-4xl font-bold">Usuarios</div>
     <!-- Actions -->
@@ -7,41 +7,56 @@
     <div class="flex justify-between">
         <div class="w-1/3">
             <mat-form-field appearance="outline" class="w-full">
-                <i matPrefix class="fa-solid fa-magnifying-glass text-slate-400 ml-3"></i>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar registro por palabra clave">
+                <i
+                    matPrefix
+                    class="fa-solid fa-magnifying-glass ml-3 text-slate-400"
+                ></i>
+                <input
+                    matInput
+                    (keyup)="applyFilter($event)"
+                    placeholder="Buscar registro por palabra clave"
+                />
             </mat-form-field>
         </div>
 
-        <button mat-flat-button color="primary" class="mt-2" (click)="openCreateUsersDialog()">
+        <button
+            mat-flat-button
+            color="primary"
+            class="mt-2"
+            (click)="openCreateUsersDialog()"
+        >
             <i class="fa-solid fa-plus"></i>&nbsp;Crear usuario
         </button>
     </div>
 </div>
 
 <table mat-table [dataSource]="usersList">
-
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nombre del usuario</th>
-        <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+        <th mat-header-cell *matHeaderCellDef>Nombre del usuario</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Correo electrónico</th>
-        <td mat-cell *matCellDef="let element"> {{ element.email }}</td>
+        <th mat-header-cell *matHeaderCellDef>Correo electrónico</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Rol</th>
+        <th mat-header-cell *matHeaderCellDef>Rol</th>
         <td mat-cell *matCellDef="let element">
             @for (role of roles; track role) {
                 @if (role.value === element.role_id) {
-                    <span class="{{ role.styles }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">
+                    <span
+                        class="{{
+                            role.styles
+                        }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full"
+                    >
                         {{ role.name }}
                     </span>
                 }
@@ -51,11 +66,15 @@
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let element">
             @for (status of statuses; track status) {
                 @if (status.value === element.status) {
-                    <span class="{{ status.styles }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">
+                    <span
+                        class="{{
+                            status.styles
+                        }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full"
+                    >
                         {{ status.name }}
                     </span>
                 }
@@ -64,10 +83,12 @@
     </ng-container>
 
     <ng-container matColumnDef="active">
-        <th mat-header-cell *matHeaderCellDef> Activo/Inactivo</th>
+        <th mat-header-cell *matHeaderCellDef>Activo/Inactivo</th>
         <td mat-cell *matCellDef="let element">
-            <mat-slide-toggle (change)="updateStatus(element.uuid, $event.checked)"
-                              [checked]="element.status === 1"></mat-slide-toggle>
+            <mat-slide-toggle
+                (change)="updateStatus(element.uuid, $event.checked)"
+                [checked]="element.status === 1"
+            ></mat-slide-toggle>
         </td>
     </ng-container>
 
@@ -89,10 +110,12 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[10, 30, 50]"
-               showFirstLastButtons
-               aria-label="Select page of periodic elements">
+<mat-paginator
+    [pageSizeOptions]="[10, 30, 50]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+>
 </mat-paginator>

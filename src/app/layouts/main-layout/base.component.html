@@ -1,11 +1,19 @@
-
 <app-navbar>
-    <button type="button" class="text-white rounded-lg p-1 block xl:hidden" (click)="drawer.toggle()">
+    <button
+        type="button"
+        class="block rounded-lg p-1 text-white xl:hidden"
+        (click)="drawer.toggle()"
+    >
         <i class="fa-solid fa-bars fa-lg"></i>
     </button>
 </app-navbar>
-<mat-drawer-container class="w-full h-full" autosize>
-    <mat-drawer #drawer mode="side" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? false : true">
+<mat-drawer-container class="h-full w-full" autosize>
+    <mat-drawer
+        #drawer
+        mode="side"
+        [mode]="isMobile ? 'over' : 'side'"
+        [opened]="isMobile ? false : true"
+    >
         <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content class="bg-slate-50">

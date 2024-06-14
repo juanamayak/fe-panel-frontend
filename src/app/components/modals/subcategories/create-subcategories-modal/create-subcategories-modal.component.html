@@ -2,14 +2,23 @@
 <mat-dialog-content>
     <form [formGroup]="subcategoriesForm">
         <div>
-            <mat-label class="text-sm font-medium text-slate-500">Nombre de la subcategoria</mat-label>
+            <mat-label class="text-sm font-medium text-slate-500"
+                >Nombre de la subcategoria</mat-label
+            >
             <mat-form-field appearance="outline" class="w-full">
-                <input matInput formControlName="name">
+                <input matInput formControlName="name" />
             </mat-form-field>
         </div>
     </form>
 
     <div class="space-x-3">
-        <button mat-flat-button color="primary" (click)="createCategory()" cdkFocusInitial>Crear subcategoria</button>
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="createCategory()"
+            cdkFocusInitial
+        >
+            Crear subcategoria
+        </button>
     </div>
 </mat-dialog-content>
