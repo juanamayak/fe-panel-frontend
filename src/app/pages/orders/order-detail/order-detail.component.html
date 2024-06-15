@@ -98,63 +98,25 @@
                 <h5 class="mb-5 text-xl font-medium">Ubicación de envio</h5>
 
                 <div id="map" class="w-full h-96"></div>
-
-                <div class="mb-5 grid grid-cols-2 gap-5">
-                    <div class="space-y-3">
-                        <h3 class="text-slate-400 text-md">Información del cliente</h3>
-
-                        <div>
-                            <p>{{ order.client.name }} {{ order.client.lastname }}</p>
-                            <p>{{ order.client.email }}</p>
-                            <p>{{ order.client.cellphone }}</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <h3 class="text-slate-400 text-md">Información de envío</h3>
-
-                        <div>
-                            <p>{{ order.addresses.name_receiver }}</p>
-                            <p>{{ order.addresses.phone_receiver }}</p>
-                        </div>
-
-                        <div class="flex flex-col">
-                            <span>{{ order.addresses.address }}, Colonia {{ order.addresses.colony }}.</span>
-                            <span>{{ order.addresses.city.name }}, {{ order.addresses.state.name }}.
-                                CP {{ order.addresses.zip }}</span>
-                            <span>{{ order.addresses.references }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-5">
-                    <div class="space-y-3">
-                        <h3 class="text-slate-400 text-md">Información de pago</h3>
-
-                        <div class="flex items-center gap-5">
-                            <img src="assets/{{payment.payment_method}}.png" class="w-12 h-12">
-                            <div>
-                                <p>Pagado el: {{ payment.payment_date | date }}</p>
-                                <p>{{ payment.payer_name }}</p>
-                                <p>{{ payment.payer_email }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <h3 class="text-slate-400 text-md">Estado del pago</h3>
-
-                        <div>
-                            <p class="text-emerald-500">{{ order.total | currency }} {{ payment.currency }}</p>
-                            <p>{{ payment.transaction }}</p>
-                            <p>{{ payment.payment_status }}</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div>
         <div class="flex w-2/5 flex-col gap-5">
+            <div class="flex gap-3 space-x-3 items-center">
+                <div>
+                    <mat-label class="text-sm font-medium text-slate-500">Seleccionar status de la orden</mat-label>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-select>
+                            <mat-option value="option1">Option 1</mat-option>
+                            <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <button mat-mini-fab color="primary">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+            </div>
             <div class="w-full bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
                 <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
                     <thead class="bg-gray-50 text-xs uppercase text-gray-700">

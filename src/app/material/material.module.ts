@@ -38,6 +38,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
+        MatSelectModule,
+        MatFormFieldModule
     ],
     exports: [
         MatToolbarModule,
@@ -57,6 +59,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
+        MatSelectModule,
+        MatFormFieldModule
     ],
 })
 export class MaterialModule {}

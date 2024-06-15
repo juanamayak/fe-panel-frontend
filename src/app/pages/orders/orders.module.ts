@@ -6,6 +6,7 @@ import { CreateProductsComponent } from '../products/create-products/create-prod
 import { ProductDetailsComponent } from '../products/product-details/product-details.component';
 import { OrdersComponent } from './orders.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import {MaterialModule} from "../../material/material.module";
 
 const routes: Routes = [
     {
@@ -25,6 +26,6 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [OrderDetailComponent],
-    imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), MaterialModule],
 })
 export class OrdersModule {}

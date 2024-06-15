@@ -23,7 +23,7 @@ export class OrderDetailComponent implements OnInit {
 
     public map: mapboxgl.Map;
     public style = `mapbox://styles/mapbox/streets-v12`;
-    public zoom = 9;
+    public zoom = 15;
 
     constructor(
         private ordersService: OrdersService,
@@ -37,8 +37,6 @@ export class OrderDetailComponent implements OnInit {
 
     ngOnInit() {
         this.getOrder();
-
-        this.initMap(-99.133683, 19.438900);
     }
 
     getOrder() {
@@ -50,6 +48,7 @@ export class OrderDetailComponent implements OnInit {
                     next: (res) => {
                         this.order = res.order;
                         this.getPaymentByOrder();
+                        this.initMap();
                     },
                     error: (err) => {
                         this.spinner.hide();
@@ -73,7 +72,7 @@ export class OrderDetailComponent implements OnInit {
         })
     }
 
-    initMap(lng: any, lat: any) {
+    initMap() {
         if (this.map) {
             this.map.remove();
         }
@@ -83,16 +82,16 @@ export class OrderDetailComponent implements OnInit {
             container: 'map',
             style: this.style,
             zoom: this.zoom,
-            center: [lng, lat]
+            center: [this.order.addresses.longitude, this.order.addresses.latitude]
         });
 
         this.map.addControl(new mapboxgl.NavigationControl());
-        this.buildMarker(lng, lat)
+        this.buildMarker(this.order.addresses.longitude, this.order.addresses.latitude)
     }
 
     buildMarker(lng: any, lat: any) {
         const marker = new mapboxgl.Marker({
-            draggable: true
+            draggable: false
         }).setLngLat([lng, lat]).addTo(this.map);
 
         /* marker.on('dragend', () => {
