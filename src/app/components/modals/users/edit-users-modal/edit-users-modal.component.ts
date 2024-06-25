@@ -1,22 +1,23 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
     FormBuilder,
     FormsModule,
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {
     MAT_DIALOG_DATA,
     MatDialogContent,
     MatDialogRef,
     MatDialogTitle,
 } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { UsersService } from '../../../../services/users.service';
-import { AlertsService } from '../../../../services/alerts.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {UsersService} from '../../../../services/users.service';
+import {AlertsService} from '../../../../services/alerts.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {UserRoles} from "../../../../constants/user-roles";
 
 @Component({
     selector: 'app-edit-users-modal',
@@ -30,6 +31,8 @@ export class EditUsersModalComponent implements OnInit {
     public user: any;
     public hide = true;
 
+    public roles = UserRoles;
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private usersService: UsersService,
@@ -37,7 +40,8 @@ export class EditUsersModalComponent implements OnInit {
         private formBuilder: FormBuilder,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.user = this.data.user;
@@ -83,4 +87,5 @@ export class EditUsersModalComponent implements OnInit {
     onNoClick(): void {
         this.dialogRef.close();
     }
+
 }

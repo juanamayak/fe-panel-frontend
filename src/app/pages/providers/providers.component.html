@@ -7,14 +7,8 @@
     <div class="flex justify-between">
         <div class="w-1/3">
             <mat-form-field appearance="outline" class="w-full">
-                <i
-                    matPrefix
-                    class="fa-solid fa-magnifying-glass ml-3 text-slate-400"
-                ></i>
-                <input
-                    matInput
-                    placeholder="Buscar registro por palabra clave"
-                />
+                <i matPrefix class="fa-solid fa-magnifying-glass ml-3 text-slate-400"></i>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar registro por palabra clave"/>
             </mat-form-field>
         </div>
 
@@ -22,8 +16,7 @@
             mat-flat-button
             color="primary"
             class="mt-2"
-            (click)="openCreateProviderDialog()"
-        >
+            (click)="openCreateProviderDialog()">
             <i class="fa-solid fa-plus"></i>&nbsp;Agregar floreria
         </button>
     </div>

@@ -1,21 +1,14 @@
 <!-- Header -->
-<div
-    class="flex-0 relative flex flex-col bg-white py-5 px-6 sm:flex-row sm:items-center sm:justify-between md:px-8"
->
+<div class="flex-0 relative flex flex-col bg-white py-5 px-6 sm:flex-row sm:items-center sm:justify-between md:px-8">
     <!-- Title -->
     <div class="text-4xl font-bold">Pedidos</div>
     <!-- Actions -->
     <!-- Search -->
     <div>
-        <mat-label class="text-sm font-medium text-slate-500"
-            >Buscar registro por palabra clave</mat-label
-        >
+        <mat-label class="text-sm font-medium text-slate-500">Buscar registro por palabra clave</mat-label>
         <mat-form-field appearance="outline" class="w-full">
-            <i
-                matPrefix
-                class="fa-solid fa-magnifying-glass ml-3 text-slate-400"
-            ></i>
-            <input matInput />
+            <i matPrefix class="fa-solid fa-magnifying-glass ml-3 text-slate-400"></i>
+            <input matInput (keyup)="applyFilter($event)"/>
         </mat-form-field>
     </div>
 </div>
@@ -31,7 +24,7 @@
             <a
                 [routerLink]="['/pedidos', element.uuid]"
                 class="font-medium text-blue-600 hover:underline"
-                >{{ element.order_number }}</a
+            >{{ element.order_number }}</a
             >
         </td>
     </ng-container>
@@ -67,7 +60,7 @@
                         class="{{
                             status.style
                         }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full"
-                        >{{ status.name }}</span
+                    >{{ status.name }}</span
                     >
                 }
             }

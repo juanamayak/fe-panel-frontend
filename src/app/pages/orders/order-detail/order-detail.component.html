@@ -12,33 +12,26 @@
 <div class="mx-8 mt-10 mb-32 space-y-5">
     <div class="flex flex-col gap-10 xl:flex-row">
         <div class="flex w-3/5 flex-col gap-5">
-            <div
-                class="flex flex-row justify-between bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
-                @for (status of statuses; track status) {
-                    @if (order.status === status.value) {
-                        <p>
-                            Estado de la orden:
-                            <span
-                                class="{{ status.style }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{ status.name }}</span>
-                        </p>
-                    }
-                }
 
-                <p>
-                    Fecha de entrega:
-                    <span
-                        class="me-2 rounded-full border px-2.5 py-0.5 text-xs font-medium text-slate-500">{{ order.delivery_date | date }}</span>
-                </p>
-
-                <p>
-                    Hora de entrega:
-                    <span
-                        class="me-2 rounded-full border px-2.5 py-0.5 text-xs font-medium text-slate-500">
-                        {{ order.hours.start_hour }} - {{ order.hours.end_hour }}</span>
-                </p>
-            </div>
             <div class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
                 <h5 class="mb-5 text-xl font-medium">Detalles de la orden</h5>
+
+                <div class="mb-5 grid-cols-2 gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Estado del pedido</h3>
+
+                        <div>
+                            @for (status of statuses; track status) {
+                                @if (order.status === status.value) {
+                                    <p>
+                                        <span
+                                            class="{{ status.style }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full"> {{ status.name }}</span>
+                                    </p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
 
                 <div class="mb-5 grid grid-cols-2 gap-5">
                     <div class="space-y-3">
@@ -64,6 +57,24 @@
                             <span>{{ order.addresses.city.name }}, {{ order.addresses.state.name }}.
                                 CP {{ order.addresses.zip }}</span>
                             <span>{{ order.addresses.references }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5 grid grid-cols-2 gap-5">
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Fecha de entrega</h3>
+
+                        <div>
+                            <p>{{ order.delivery_date | date }}</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="text-slate-400 text-md">Hora de entrega</h3>
+
+                        <div>
+                            <p>{{ order.hours.start_hour }} - {{ order.hours.end_hour }}</p>
                         </div>
                     </div>
                 </div>
@@ -102,21 +113,26 @@
 
         </div>
         <div class="flex w-2/5 flex-col gap-5">
-            <div class="flex gap-3 space-x-3 items-center">
-                <div>
-                    <mat-label class="text-sm font-medium text-slate-500">Seleccionar status de la orden</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <mat-select>
-                            <mat-option value="option1">Option 1</mat-option>
-                            <mat-option value="option3">Option 3</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+            <form [formGroup]="statusForm">
+                <div class="flex gap-3 space-x-3 items-center">
+                    <div>
+                        <mat-label class="text-sm font-medium text-slate-500">Seleccionar status de la orden
+                        </mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-select formControlName="status">
+                                @for (status of statuses; track status) {
+                                    <mat-option [value]="status.value">{{ status.name }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                <button mat-mini-fab color="primary">
-                    <i class="fa-solid fa-check"></i>
-                </button>
-            </div>
+                    <button mat-mini-fab color="primary">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </form>
+
             <div class="w-full bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6">
                 <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
                     <thead class="bg-gray-50 text-xs uppercase text-gray-700">
@@ -175,62 +191,6 @@
                     </tfoot>
                 </table>
             </div>
-            <!--<div
-                class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6"
-            >
-                <h5 class="mb-3 text-xl font-medium">
-                    Información del cliente
-                </h5>
-                <ul role="list" class="my-5 space-y-5">
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="ms-3 text-base text-gray-500"
-                        >{{ order.client.name }}
-                            {{ order.client.lastname }}</span
-                        >
-                    </li>
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span class="ms-3 text-base text-gray-500">{{
-                                order.client.email
-                            }}</span>
-                    </li>
-
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-phone"></i>
-                        <span class="ms-3 text-base text-gray-500">{{
-                                order.client.cellphone
-                            }}</span>
-                    </li>
-                </ul>
-            </div>
-            <div
-                class="flex flex-col bg-white py-8 px-4 sm:rounded-2xl sm:border sm:border-slate-200 sm:p-6"
-            >
-                <h5 class="mb-3 text-xl font-medium">Información del pago</h5>
-                <ul role="list" class="my-5 space-y-5">
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="ms-3 text-base text-gray-500"
-                        >{{ order.client.name }}
-                            {{ order.client.lastname }}</span
-                        >
-                    </li>
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span class="ms-3 text-base text-gray-500">{{
-                                order.client.email
-                            }}</span>
-                    </li>
-
-                    <li class="flex items-center space-x-2">
-                        <i class="fa-solid fa-phone"></i>
-                        <span class="ms-3 text-base text-gray-500">{{
-                                order.client.cellphone
-                            }}</span>
-                    </li>
-                </ul>
-            </div>-->
         </div>
     </div>
 </div>

@@ -9,6 +9,7 @@ import {OrderStatuses} from '../../../constants/order-statuses';
 import {PaymentService} from "../../../services/payment.service";
 import * as mapboxgl from "mapbox-gl";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-order-detail',
@@ -16,6 +17,9 @@ import {environment} from "../../../../environments/environment";
     styleUrl: './order-detail.component.css',
 })
 export class OrderDetailComponent implements OnInit {
+
+    public statusForm: any;
+
     public order: any;
     public payment: any;
 
@@ -28,6 +32,7 @@ export class OrderDetailComponent implements OnInit {
     constructor(
         private ordersService: OrdersService,
         private paymentService: PaymentService,
+        private formBuilder: FormBuilder,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
         private activatedRoute: ActivatedRoute,
@@ -47,6 +52,7 @@ export class OrderDetailComponent implements OnInit {
                 this.ordersService.getOrder(orderUuid).subscribe({
                     next: (res) => {
                         this.order = res.order;
+                        this.initFormStatus();
                         this.getPaymentByOrder();
                         this.initMap();
                     },
@@ -57,6 +63,12 @@ export class OrderDetailComponent implements OnInit {
                 });
             }
         });
+    }
+
+    initFormStatus() {
+        this.statusForm = this.formBuilder.group({
+            status: [this.order.status, Validators.required]
+        })
     }
 
     getPaymentByOrder() {

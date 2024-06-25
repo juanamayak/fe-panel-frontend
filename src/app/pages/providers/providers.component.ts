@@ -1,17 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { CategoriesService } from '../../services/categories.service';
-import { AlertsService } from '../../services/alerts.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { CreateProvidersModalComponent } from '../../components/modals/providers/create-providers-modal/create-providers-modal.component';
-import { ProvidersService } from '../../services/providers.service';
-import { EditProvidersModalComponent } from '../../components/modals/providers/edit-providers-modal/edit-providers-modal.component';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {CategoriesService} from '../../services/categories.service';
+import {AlertsService} from '../../services/alerts.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {
+    CreateProvidersModalComponent
+} from '../../components/modals/providers/create-providers-modal/create-providers-modal.component';
+import {ProvidersService} from '../../services/providers.service';
+import {
+    EditProvidersModalComponent
+} from '../../components/modals/providers/edit-providers-modal/edit-providers-modal.component';
 
 @Component({
     selector: 'app-providers',
@@ -38,7 +42,8 @@ export class ProvidersComponent implements OnInit {
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
         public dialog: MatDialog,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.getProviders();
@@ -92,7 +97,7 @@ export class ProvidersComponent implements OnInit {
             .then((res) => {
                 if (res.isConfirmed) {
                     this.spinner.show();
-                    const data = { status: -1 };
+                    const data = {status: -1};
                     this.providersService
                         .deleteProviders(providerUuid, data)
                         .subscribe({
@@ -110,5 +115,10 @@ export class ProvidersComponent implements OnInit {
                         });
                 }
             });
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.providersList.filter = filterValue.trim().toLowerCase();
     }
 }

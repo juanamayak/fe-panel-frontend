@@ -1,23 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
     FormBuilder,
     FormsModule,
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {
     MAT_DIALOG_DATA,
     MatDialogContent,
     MatDialogRef,
     MatDialogTitle,
 } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { CategoriesService } from '../../../../services/categories.service';
-import { AlertsService } from '../../../../services/alerts.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { UsersService } from '../../../../services/users.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {CategoriesService} from '../../../../services/categories.service';
+import {AlertsService} from '../../../../services/alerts.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {UsersService} from '../../../../services/users.service';
+import {UserRoles} from "../../../../constants/user-roles";
 
 @Component({
     selector: 'app-create-user-modal',
@@ -26,6 +27,7 @@ import { UsersService } from '../../../../services/users.service';
 })
 export class CreateUserModalComponent implements OnInit {
     public usersForm: any;
+    public roles = UserRoles;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -34,7 +36,8 @@ export class CreateUserModalComponent implements OnInit {
         private formBuilder: FormBuilder,
         private alertsService: AlertsService,
         private spinner: NgxSpinnerService,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.initForm();
@@ -42,7 +45,7 @@ export class CreateUserModalComponent implements OnInit {
 
     initForm() {
         this.usersForm = this.formBuilder.group({
-            role_id: [1, Validators.required],
+            role_id: ['', Validators.required],
             name: ['', Validators.required],
             lastname: ['', Validators.required],
             email: ['', Validators.required],

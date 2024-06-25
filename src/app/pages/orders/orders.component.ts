@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrdersService } from '../../services/orders.service';
-import { AlertsService } from '../../services/alerts.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { OrderStatuses } from '../../constants/order-statuses';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {OrdersService} from '../../services/orders.service';
+import {AlertsService} from '../../services/alerts.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {OrderStatuses} from '../../constants/order-statuses';
 
 @Component({
     selector: 'app-orders',
@@ -33,7 +33,8 @@ export class OrdersComponent implements OnInit {
         private ordersService: OrdersService,
         private spinner: NgxSpinnerService,
         private alertsService: AlertsService,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.getOrders();
@@ -53,5 +54,10 @@ export class OrdersComponent implements OnInit {
                 this.alertsService.errorAlert(err.error.errors);
             },
         });
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.ordersList.filter = filterValue.trim().toLowerCase();
     }
 }
