@@ -18,4 +18,8 @@ export class OrdersService {
     getOrders(): Observable<any> {
         return this.httpClient.get(`${this.url}/orders`);
     }
+
+    changeStatus(orderUuid: any, data): Observable<any> {
+        return this.httpClient.put(`${this.url}/orders/change-status/${orderUuid}`, data);
+    }
 }

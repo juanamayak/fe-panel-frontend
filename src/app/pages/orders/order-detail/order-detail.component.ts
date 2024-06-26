@@ -71,6 +71,25 @@ export class OrderDetailComponent implements OnInit {
         })
     }
 
+    changeStatus(){
+        this.spinner.show();
+        const data = {
+            status: this.statusForm.value.status.toString()
+        }
+
+        this.ordersService.changeStatus(this.order.uuid, data).subscribe({
+            next: res => {
+                this.spinner.hide();
+                this.alertsService.successAlert(res.message);
+                this.getOrder();
+            },
+            error: err => {
+                this.spinner.hide();
+                this.alertsService.errorAlert(err.error.errors);
+            }
+        })
+    }
+
     getPaymentByOrder() {
         this.paymentService.getPaymentByOrder(this.order.id).subscribe({
             next: res => {
