@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "gs-frontend-angular-template": {
+        "fe-panel-frontend": {
             "projectType": "application",
             "schematics": {},
             "root": "",
@@ -13,7 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/gs-frontend-angular-template",
+                        "outputPath": "dist/fe-panel-frontend",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -71,10 +71,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "gs-frontend-angular-template:build:production"
+                            "buildTarget": "fe-panel-frontend:build:production"
                         },
                         "development": {
-                            "buildTarget": "gs-frontend-angular-template:build:development"
+                            "buildTarget": "fe-panel-frontend:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "gs-frontend-angular-template:build"
+                        "buildTarget": "fe-panel-frontend:build"
                     }
                 },
                 "test": {
@@ -107,6 +107,6 @@
         }
     },
     "cli": {
-      "analytics": "cd025bd9-c72b-4527-8c95-f97cefaf5dca"
+        "analytics": "cd025bd9-c72b-4527-8c95-f97cefaf5dca"
     }
 }
